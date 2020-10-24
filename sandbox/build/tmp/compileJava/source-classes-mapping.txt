@@ -1,2 +1,4 @@
+qa/pkg/sandbox/Point.java
+ qa.pkg.sandbox.Point
 qa/pkg/sandbox/MyFirstProgram.java
  qa.pkg.sandbox.MyFirstProgram
