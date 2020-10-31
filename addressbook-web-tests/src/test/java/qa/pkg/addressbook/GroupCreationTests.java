@@ -35,8 +35,7 @@ public class GroupCreationTests {
     fillGroupForm(new GroupData("testGroup", "header", "footer"));
     submitFormByName("submit");
     gotoPage("group page");
-    logout();
-  }
+    }
 
   private void logout() {
     wd.findElement(By.linkText("Logout")).click();
@@ -65,6 +64,7 @@ public class GroupCreationTests {
 
   @AfterMethod
   public void tearDown() throws Exception {
+    logout();
     wd.quit();
   }
 
