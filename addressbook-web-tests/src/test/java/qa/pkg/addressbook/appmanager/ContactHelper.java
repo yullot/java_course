@@ -46,5 +46,9 @@ public class ContactHelper extends HelperBase {
   public void clickDeleteBtn() {
     click(By.cssSelector("form[method='get']>input[value='Delete']"));
   }
+
+  public void clickUpdateBtn() {
+    click(By.cssSelector("input[name='update']"));
+  }
 }
 
