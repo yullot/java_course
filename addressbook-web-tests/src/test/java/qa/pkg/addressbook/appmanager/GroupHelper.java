@@ -30,4 +30,12 @@ public class GroupHelper extends HelperBase {
   public void returnToGroupPage(){
     click(By.linkText("group page"));
   }
+
+  public void clickEditGroupBtn() {
+    click(By.name("edit"));
+  }
+
+  public void clickUpdateBtn() {
+    click(By.name("update"));
+  }
 }

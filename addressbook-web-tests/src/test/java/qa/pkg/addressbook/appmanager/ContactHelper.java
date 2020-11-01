@@ -31,7 +31,7 @@ public class ContactHelper extends HelperBase {
     new Select(wd.findElement(locator)).selectByVisibleText(value);
   }
 
-  public void clickEnterButton() {
+  public void clickEnterBtn() {
     click(By.xpath("(//input[@name='submit'])[2]"));
   }
 
