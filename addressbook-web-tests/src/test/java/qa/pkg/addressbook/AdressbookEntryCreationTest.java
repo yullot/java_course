@@ -22,7 +22,7 @@ public class AdressbookEntryCreationTest {
   @Test
   public void testAdressbookEntryCreation() throws Exception {
     gotoPage("add new");
-    fillNewContactForm(new ContactData("Andrea", "Ivanovna", "Mealnia", "mail@mail.ru", "7956782934", "Moscow, Lenina str 15"));
+    fillNewContactForm(new ContactData("Ivan", "Ivanovna", "Mealnia", "mail@mail.ru", "7956782934", "Moscow, Lenina str 15"));
     clickButtonByXpath("(//input[@name='submit'])[2]");
     gotoPage("home page");
   }
@@ -63,9 +63,6 @@ public class AdressbookEntryCreationTest {
     wd.findElement(By.name("byear")).click();
     wd.findElement(By.name("byear")).clear();
     wd.findElement(By.name("byear")).sendKeys("1980");
-    wd.findElement(By.name("new_group")).click();
-    new Select(wd.findElement(By.name("new_group"))).selectByVisibleText("testGroup");
-    wd.findElement(By.xpath("(//option[@value='3'])[3]")).click();
     wd.findElement(By.name("address2")).clear();
     wd.findElement(By.name("address2")).sendKeys("Minsk, Lenina 124/12");
     wd.findElement(By.name("phone2")).clear();
