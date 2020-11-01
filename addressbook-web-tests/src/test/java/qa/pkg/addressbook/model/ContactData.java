@@ -1,4 +1,4 @@
-package qa.pkg.addressbook;
+package qa.pkg.addressbook.model;
 
 public class ContactData {
   private final String firstname;
