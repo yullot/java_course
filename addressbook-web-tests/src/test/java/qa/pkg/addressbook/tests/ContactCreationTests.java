@@ -3,7 +3,7 @@ package qa.pkg.addressbook.tests;
 import org.testng.annotations.Test;
 import qa.pkg.addressbook.model.ContactData;
 
-public class AdressbookEntryCreationTest extends TestBase {
+public class ContactCreationTests extends TestBase {
 
 
   @Test
