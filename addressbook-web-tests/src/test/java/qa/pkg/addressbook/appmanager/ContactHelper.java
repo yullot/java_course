@@ -35,7 +35,7 @@ public class ContactHelper extends HelperBase {
     click(By.xpath("(//input[@name='submit'])[2]"));
   }
 
-  public void returnToHomePage(){
+  public void returnToHomePage() {
     click(By.linkText("home page"));
   }
 
@@ -44,11 +44,17 @@ public class ContactHelper extends HelperBase {
   }
 
   public void clickDeleteBtn() {
-    click(By.cssSelector("form[method='get']>input[value='Delete']"));
+    click(By.cssSelector("input[value='Delete']"));
+
   }
 
   public void clickUpdateBtn() {
     click(By.cssSelector("input[name='update']"));
   }
+
+  public void selectContact() {
+    click(By.name("selected[]"));
+  }
+
 }
 
