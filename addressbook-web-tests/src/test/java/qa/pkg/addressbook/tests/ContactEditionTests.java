@@ -8,7 +8,7 @@ public class ContactEditionTests extends TestBase {
   public void testContactEdition(){
     app.getNavigationHelper().goToHomePage();
     app.getContactHelper().clickEditContactBtn();
-    app.getContactHelper().fillNewContactForm(new ContactData("IvaEdit", "ValentinivnaEdit", "Thrump", "mail@mail.ru", "+375295464722", "Moscow, Lenina str 15"));
+    app.getContactHelper().fillNewContactForm(new ContactData("IvaEdit", "ValentinivnaEdit", "Thrump", "mail@mail.ru", "+375295464722", "Moscow, Lenina str 15",null),false);
     app.getContactHelper().clickUpdateBtn();
     app.getContactHelper().returnToHomePage();
   }

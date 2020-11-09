@@ -3,6 +3,7 @@ package qa.pkg.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import qa.pkg.addressbook.model.ContactData;
 
 public class ContactHelper extends HelperBase {
@@ -10,7 +11,7 @@ public class ContactHelper extends HelperBase {
     super(wd);
   }
 
-  public void fillNewContactForm(ContactData contactData) {
+  public void fillNewContactForm(ContactData contactData,boolean creation) {
     fillInput(By.name("firstname"), contactData.getFirstname());
     fillInput(By.name("middlename"), contactData.getMiddlename());
     fillInput(By.name("lastname"), contactData.getLastname());
@@ -25,6 +26,9 @@ public class ContactHelper extends HelperBase {
     fillInput(By.name("address2"), "Minsk, Lenina 124/12");
     fillInput(By.name("phone2"), "12");
     fillInput(By.name("notes"), "Notes");
+    if (creation){
+      selectByVisibleText(By.name("new_group"),contactData.getGroup());
+    } else Assert.assertFalse(isElementPresent(By.name("new_group")));
   }
 
   private void selectByVisibleText(By locator, String value) {
