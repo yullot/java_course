@@ -18,11 +18,13 @@ public class HelperBase {
 
   protected void fillInput(By locator, String value) {
     if (value != null) {
-      wd.findElement(locator).clear();
-      wd.findElement(locator).sendKeys(value);
+      String existedText = wd.findElement(locator).getAttribute("value");
+      if (!value.equals(existedText)) {
+        wd.findElement(locator).clear();
+        wd.findElement(locator).sendKeys(value);
+      }
     }
   }
-
 
   public boolean isElementPresent(By by) {
     try {
