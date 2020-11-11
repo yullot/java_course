@@ -11,7 +11,7 @@ public class ContactHelper extends HelperBase {
     super(wd);
   }
 
-  public void fillNewContactForm(ContactData contactData,boolean creation) {
+  public void fillNewContactForm(ContactData contactData, boolean creation) {
     fillInput(By.name("firstname"), contactData.getFirstname());
     fillInput(By.name("middlename"), contactData.getMiddlename());
     fillInput(By.name("lastname"), contactData.getLastname());
@@ -26,8 +26,12 @@ public class ContactHelper extends HelperBase {
     fillInput(By.name("address2"), "Minsk, Lenina 124/12");
     fillInput(By.name("phone2"), "12");
     fillInput(By.name("notes"), "Notes");
-    if (creation){
-      selectByVisibleText(By.name("new_group"),contactData.getGroup());
+    if (creation) {
+      if (contactData.getGroup() == null) {
+        selectByVisibleText(By.name("new_group"), contactData.getGroup());
+      } else {
+        return;
+      }
     } else Assert.assertFalse(isElementPresent(By.name("new_group")));
   }
 
@@ -58,6 +62,16 @@ public class ContactHelper extends HelperBase {
 
   public void selectContact() {
     click(By.name("selected[]"));
+  }
+
+  public void createContact(ContactData contactData) {
+    fillNewContactForm(contactData, true);
+    clickEnterBtn();
+    returnToHomePage();
+  }
+
+  public boolean isThereAContact() {
+    return isElementPresent(By.name("selected[]"));
   }
 
 }

@@ -50,4 +50,9 @@ public class GroupHelper extends HelperBase {
   public boolean isThereAGroup() {
     return isElementPresent(By.name("selected[]"));
   }
+
+  public String findAGroup(){
+    System.out.println("Name"+wd.findElement(By.name("selected[]")).getText());
+    return wd.findElement(By.name("selected[]")).getText();
+  }
 }
