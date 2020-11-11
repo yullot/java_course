@@ -11,7 +11,7 @@ public class ContactHelper extends HelperBase {
     super(wd);
   }
 
-   public void fillNewContactForm(ContactData contactData, boolean creation) {
+  public void fillNewContactForm(ContactData contactData, boolean creation) {
     fillInput(By.name("firstname"), contactData.getFirstname());
     fillInput(By.name("middlename"), contactData.getMiddlename());
     fillInput(By.name("lastname"), contactData.getLastname());
@@ -27,9 +27,8 @@ public class ContactHelper extends HelperBase {
     fillInput(By.name("phone2"), "12");
     fillInput(By.name("notes"), "Notes");
     if (creation) {
-        selectByVisibleText(By.name("new_group"), contactData.getGroup());
-      }
-     else Assert.assertFalse(isElementPresent(By.name("new_group")));
+      selectByVisibleText(By.name("new_group"), contactData.getGroup());
+    } else Assert.assertFalse(isElementPresent(By.name("new_group")));
   }
 
   private void selectByVisibleText(By locator, String value) {

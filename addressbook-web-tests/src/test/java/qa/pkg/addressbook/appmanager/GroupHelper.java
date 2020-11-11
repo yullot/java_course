@@ -51,9 +51,10 @@ public class GroupHelper extends HelperBase {
     return isElementPresent(By.name("selected[]"));
   }
 
-  /* go to Groups page
-  anf if there any nexisted group=> return group name
-  else return "[none]" value- value from AddNewContactForm
+  /**
+   * go to Groups page
+   * and if there any nexisted group=> return group name
+   * else return "[none]" value- value from AddNewContactForm
    */
   public String getNameGroup() {
     click(By.linkText("groups"));
