@@ -51,8 +51,16 @@ public class GroupHelper extends HelperBase {
     return isElementPresent(By.name("selected[]"));
   }
 
-  public String findAGroup(){
-    System.out.println("Name"+wd.findElement(By.name("selected[]")).getText());
-    return wd.findElement(By.name("selected[]")).getText();
+  /* go to Groups page
+  anf if there any nexisted group=> return group name
+  else return "[none]" value- value from AddNewContactForm
+   */
+  public String getNameGroup() {
+    click(By.linkText("groups"));
+    if (isThereAGroup()) {
+      return wd.findElement(By.xpath("//div[@id='content']/form/span")).getText();
+    }
+    return "[none]";
   }
 }
+

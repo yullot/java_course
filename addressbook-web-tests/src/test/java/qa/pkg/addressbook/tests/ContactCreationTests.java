@@ -2,16 +2,16 @@ package qa.pkg.addressbook.tests;
 
 import org.testng.annotations.Test;
 import qa.pkg.addressbook.model.ContactData;
-import qa.pkg.addressbook.model.GroupData;
 
 public class ContactCreationTests extends TestBase {
 
 
   @Test
-  public void testAdressbookEntryCreation() {
-    app.getNavigationHelper().goToGroupsPage();
-    app.getContactHelper().createContact(new ContactData("Ivan", "Ivanovna", "Mealnia",
-            null, null, "Moscow, Lenina str 15"));
+  public void testContactCreation() {
+    String groupName=app.getGroupHelper().getNameGroup();
+    app.getNavigationHelper().goToAddNewPage();
+    app.getContactHelper().createContact(new ContactData("NEWWW", "Ivanovna", "Mealnia",
+            null, null, "Moscow, Lenina str 15",groupName));
     // }
   }
 
