@@ -53,7 +53,7 @@ public class GroupHelper extends HelperBase {
 
   /**
    * go to Groups page
-   * and if there any nexisted group=> return group name
+   * and if there any existed group=> return group name
    * else return "[none]" value- value from AddNewContactForm
    */
   public String getNameGroup() {
@@ -62,6 +62,10 @@ public class GroupHelper extends HelperBase {
       return wd.findElement(By.xpath("//div[@id='content']/form/span")).getText();
     }
     return "[none]";
+  }
+
+  public int getGroupCount() {
+    return wd.findElements(By.name("selected[]")).size();
   }
 }
 
