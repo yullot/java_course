@@ -3,11 +3,24 @@ package qa.pkg.addressbook.model;
 import java.util.Objects;
 
 public class GroupData {
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  private int id;
   private final String groupName;
   private final String header;
   private final String footer;
 
+  public GroupData(int id, String groupName, String header, String footer) {
+    this.id = id;
+    this.groupName = groupName;
+    this.header = header;
+    this.footer = footer;
+  }
+
   public GroupData(String groupName, String header, String footer) {
+    this.id=0;
     this.groupName = groupName;
     this.header = header;
     this.footer = footer;
@@ -25,23 +38,30 @@ public class GroupData {
     return footer;
   }
 
+  public int getId() {
+    return id;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GroupData groupData = (GroupData) o;
-    return groupName.equals(groupData.groupName);
+    return id == groupData.id &&
+            Objects.equals(groupName, groupData.groupName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(groupName);
+    return Objects.hash(id, groupName);
   }
 
   @Override
   public String toString() {
     return "GroupData{" +
-            "groupName='" + groupName + '\'' +
+            "id='" + id + '\'' +
+            ", groupName='" + groupName + '\'' +
             '}';
   }
+
 }
