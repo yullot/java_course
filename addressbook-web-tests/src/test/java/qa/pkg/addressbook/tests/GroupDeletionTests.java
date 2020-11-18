@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import qa.pkg.addressbook.model.GroupData;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class GroupDeletionTests extends TestBase {
@@ -22,6 +23,9 @@ public class GroupDeletionTests extends TestBase {
     List<GroupData> after = app.getGroupHelper().getGroupList();
     Assert.assertEquals(after.size(), before.size() - 1);
     before.remove(before.size() - 1);
-    Assert.assertEquals(after, before);
-  }
+    Comparator<? super GroupData> byId= Comparator.comparingInt(GroupData::getId);
+    before.sort(byId);
+    after.sort(byId);
+    Assert.assertEquals(after,before);
+    }
 }

@@ -2,9 +2,15 @@ package qa.pkg.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import qa.pkg.addressbook.model.ContactData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase {
   public ContactHelper(WebDriver wd) {
@@ -13,7 +19,6 @@ public class ContactHelper extends HelperBase {
 
   public void fillNewContactForm(ContactData contactData, boolean creation) {
     fillInput(By.name("firstname"), contactData.getFirstname());
-    fillInput(By.name("middlename"), contactData.getMiddlename());
     fillInput(By.name("lastname"), contactData.getLastname());
     fillInput(By.name("nickname"), "Marfa");
     fillInput(By.name("company"), "Yandex");
@@ -70,5 +75,19 @@ public class ContactHelper extends HelperBase {
     return isElementPresent(By.name("selected[]"));
   }
 
+  public List<ContactData> getContactList() {
+    List<WebElement> elements=wd.findElements(By.name("selected[]"));
+    List<ContactData> contacts = new ArrayList<ContactData>();
+    for(WebElement el:elements){
+     String titleAttr=el.getAttribute("title");
+      String substr[]=titleAttr.split(" ");
+      String firstName=substr[1].substring(1);
+      String lastName=substr[2].substring(0,substr[2].length()-1);
+      int contactId=Integer.parseInt(el.getAttribute("id"));
+      System.out.println(titleAttr+" "+contactId);
+      contacts.add(new ContactData(contactId,firstName,lastName,null,null,null,null));
+    }
+    return contacts;
+  }
 }
 

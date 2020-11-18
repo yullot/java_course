@@ -2,8 +2,11 @@ package qa.pkg.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.sql.SQLOutput;
+import java.util.concurrent.TimeUnit;
 
 public class NavigationHelper extends HelperBase {
 
@@ -38,5 +41,9 @@ public class NavigationHelper extends HelperBase {
 
   public void confirmAlert() {
     wd.switchTo().alert().accept();
+  }
+  public void waitForHomePage(){
+    WebDriverWait wait = new WebDriverWait(wd, 5);
+    wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.id("maintable")));
   }
 }
