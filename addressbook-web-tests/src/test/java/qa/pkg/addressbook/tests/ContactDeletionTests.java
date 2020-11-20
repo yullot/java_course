@@ -18,17 +18,16 @@ public class ContactDeletionTests extends TestBase {
               null, null, "Moscow, Lenina str 15", groupName));
     }
     List<ContactData> before = app.getContactHelper().getContactList();
-    app.getContactHelper().selectContact();
+    app.getContactHelper().selectContact(before.size()-1);
     app.getContactHelper().clickDeleteBtn();
     app.getNavigationHelper().confirmAlert();
     app.getNavigationHelper().waitForHomePage();
     List<ContactData> after = app.getContactHelper().getContactList();
     Assert.assertEquals(after.size(), before.size() - 1);
-
+    before.remove(before.size() - 1);
     Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getContactId);
     before.sort(byId);
     after.sort(byId);
-    before.remove(before.size() - 1);
     Assert.assertEquals(after, before);
   }
 }
