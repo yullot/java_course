@@ -52,9 +52,15 @@ public class ContactHelper extends HelperBase {
 
   public void clickDeleteBtn() {
     click(By.cssSelector("input[value='Delete']"));
-
   }
-
+  public void confirmAlert() {
+    wd.switchTo().alert().accept();
+  }
+  public void delete(int index) {
+    selectContact(index);
+    clickDeleteBtn();
+    confirmAlert();
+  }
   public void clickUpdateBtn() {
     click(By.cssSelector("input[name='update']"));
   }
@@ -69,11 +75,17 @@ public class ContactHelper extends HelperBase {
     returnToHomePage();
   }
 
+  public void edit(int index, ContactData contact) {
+    clickEditContactBtn(index);
+    fillNewContactForm(contact, false);
+    clickUpdateBtn();
+    returnToHomePage();
+  }
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
   }
 
-  public List<ContactData> getContactList() {
+  public List<ContactData> list() {
     List<WebElement> elements = wd.findElements(By.name("entry"));
     List<ContactData> contacts = new ArrayList<ContactData>();
     for (WebElement el : elements) {

@@ -1,6 +1,7 @@
 package qa.pkg.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import qa.pkg.addressbook.model.ContactData;
 
@@ -8,23 +9,28 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ContactDeletionTests extends TestBase {
-  @Test
-  public void testContactDeletion() {
-    String groupName = app.getGroupHelper().getNameGroup();
-    app.getNavigationHelper().goToHomePage();
-    if (!app.getContactHelper().isThereAContact()) {
-      app.getNavigationHelper().goToAddNewPage();
-      app.getContactHelper().createContact(new ContactData("Jhonson", "Mealnia",
+  @BeforeMethod
+  public void ensurePrecondition() {
+    String groupName = app.group().getNameGroup();
+    app.goTo().homePage();
+    if (app.contact().list().size() == 0) {
+      app.goTo().addNewPage();
+      app.contact().createContact(new ContactData("Jhonson", "Mealnia",
               null, null, "Moscow, Lenina str 15", groupName));
     }
-    List<ContactData> before = app.getContactHelper().getContactList();
-    app.getContactHelper().selectContact(before.size()-1);
-    app.getContactHelper().clickDeleteBtn();
-    app.getNavigationHelper().confirmAlert();
-    app.getNavigationHelper().waitForHomePage();
-    List<ContactData> after = app.getContactHelper().getContactList();
+
+  }
+
+  @Test
+  public void testContactDeletion() {
+    List<ContactData> before = app.contact().list();
+    int index = before.size() - 1;
+    app.contact().delete(index);
+    app.goTo().waitForHomePage();
+
+    List<ContactData> after = app.contact().list();
     Assert.assertEquals(after.size(), before.size() - 1);
-    before.remove(before.size() - 1);
+    before.remove(index);
     Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getContactId);
     before.sort(byId);
     after.sort(byId);

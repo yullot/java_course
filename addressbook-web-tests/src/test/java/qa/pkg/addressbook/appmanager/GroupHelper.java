@@ -73,14 +73,28 @@ public class GroupHelper extends HelperBase {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<GroupData> getGroupList() {
+  public void edit(int index, GroupData group) {
+    selectGroup(index);
+    clickEditGroupBtn();
+    fillGroupForm(group);
+    clickUpdateBtn();
+    returnToGroupPage();
+  }
+
+  public void delete(int index) {
+    selectGroup(index);
+    deleteSelectedGroup();
+    returnToGroupPage();
+  }
+
+  public List<GroupData> list() {
     List<GroupData> groups = new ArrayList<GroupData>();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
     for (WebElement element : elements) {
-     String name=element.getText();
-     int id=Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-     GroupData group= new GroupData(id,name, null,null);
-             groups.add(group);
+      String name = element.getText();
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      GroupData group = new GroupData(id, name, null, null);
+      groups.add(group);
     }
     return groups;
   }

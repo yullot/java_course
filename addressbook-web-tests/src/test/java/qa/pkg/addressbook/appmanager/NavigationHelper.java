@@ -11,7 +11,7 @@ public class NavigationHelper extends HelperBase {
     super(wd);
   }
 
-  public void goToGroupsPage() {
+  public void groupsPage() {
     if (isElementPresent(By.cssSelector("div#content>h1"))
             && wd.findElement(By.xpath("//div[@id='content']/h1")).getText().equals("Groups")
             && isElementPresent(By.name("new"))) {
@@ -20,7 +20,7 @@ public class NavigationHelper extends HelperBase {
     click(By.linkText("groups"));
   }
 
-  public void goToAddNewPage() {
+  public void addNewPage() {
     if (isElementPresent(By.cssSelector("div#content>h1")) &&
             wd.findElement(By.cssSelector("div#content>h1")).getText().equals("Edit / add address book entry")
             && isElementPresent(By.name("submit"))) {
@@ -29,15 +29,11 @@ public class NavigationHelper extends HelperBase {
     click(By.linkText("add new"));
   }
 
-  public void goToHomePage() {
+  public void homePage() {
     if (isElementPresent(By.id("maintable"))) {
       return;
     }
     click(By.linkText("home"));
-  }
-
-  public void confirmAlert() {
-    wd.switchTo().alert().accept();
   }
 
   public void waitForHomePage() {
