@@ -12,7 +12,7 @@ public class GroupCreationTests extends TestBase {
   public void testGroupCreation() {
     app.goTo().groupsPage();
     List<GroupData> before = app.group().list();
-    GroupData group = new GroupData("testGroup2", "header", "footer");
+    GroupData group = new GroupData().withGroupName("testGroup2").withHeader("header").withFooter("footer");
     app.group().createGroup(group);
 
     List<GroupData> after = app.group().list();

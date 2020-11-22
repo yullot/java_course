@@ -14,8 +14,8 @@ public class GroupEditionTests extends TestBase {
   public void ensurePrecondition() {
     app.goTo().groupsPage();
     System.out.println("Group " + app.group().getNameGroup());
-    if (app.group().list().size()==0) {
-      app.group().createGroup(new GroupData("testGroup2", "header", "footer"));
+    if (app.group().list().size() == 0) {
+      app.group().createGroup(new GroupData().withGroupName("testGroup2").withHeader("header").withFooter("footer"));
     }
   }
 
@@ -23,8 +23,8 @@ public class GroupEditionTests extends TestBase {
   public void testGroupEdition() {
     List<GroupData> before = app.group().list();
     int index = before.size() - 1;
-    GroupData group = new GroupData(before.get(before.size() - 1).getId(), "testGroupEdit", "headerEdit", "footerEdit");
-
+    GroupData group = new GroupData().withId(before.get(before.size() - 1).getId())
+            .withGroupName("testGroupEdit").withHeader("headerEdit").withFooter("footerEdit");
     app.group().edit(index, group);
 
     List<GroupData> after = app.group().list();
@@ -36,7 +36,5 @@ public class GroupEditionTests extends TestBase {
     after.sort(byId);
     Assert.assertEquals(after, before);
   }
-
-
 }
 
