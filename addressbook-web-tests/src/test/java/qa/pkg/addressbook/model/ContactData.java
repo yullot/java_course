@@ -3,33 +3,49 @@ package qa.pkg.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
-  private int contactId;
-  private final String firstname;
-  private final String lastname;
-  private final String email;
-  private final String homePhone;
-  private final String address;
+  private int contactId = Integer.MAX_VALUE;
+  private String firstname;
+  private String lastname;
+  private String email;
+  private String homePhone;
+  private String address;
   private String group;
 
-  public ContactData(int contactId, String firstname,  String lastname, String email, String homePhone, String address, String group) {
-    this.contactId=contactId;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.email = email;
-    this.homePhone = homePhone;
-    this.address = address;
-    this.group = group;
+  public ContactData withContactId(int contactId) {
+    this.contactId = contactId;
+    return this;
   }
 
-  public ContactData( String firstname,  String lastname, String email, String homePhone, String address, String group) {
-    this.contactId=Integer.MAX_VALUE;
+  public ContactData withFirstname(String firstname) {
     this.firstname = firstname;
-    this.lastname = lastname;
-    this.email = email;
-    this.homePhone = homePhone;
-    this.address = address;
-    this.group = group;
+    return this;
   }
+
+  public ContactData withLastname(String lastname) {
+    this.lastname = lastname;
+    return this;
+  }
+
+  public ContactData withEmail(String email) {
+    this.email = email;
+    return this;
+  }
+
+  public ContactData withHomePhone(String homePhone) {
+    this.homePhone = homePhone;
+    return this;
+  }
+
+  public ContactData withAddress(String address) {
+    this.address = address;
+    return this;
+  }
+
+  public ContactData withGroup(String group) {
+    this.group = group;
+    return this;
+  }
+
 
   public String getFirstname() {
     return firstname;
@@ -55,9 +71,9 @@ public class ContactData {
     return group;
   }
 
-  public int getContactId(){
-          return contactId;
-    }
+  public int getContactId() {
+    return contactId;
+  }
 
   @Override
   public String toString() {
@@ -82,4 +98,4 @@ public class ContactData {
     return Objects.hash(firstname, lastname);
   }
 
-  }
+}

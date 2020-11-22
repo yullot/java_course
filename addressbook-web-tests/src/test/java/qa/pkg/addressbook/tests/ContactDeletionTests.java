@@ -15,8 +15,8 @@ public class ContactDeletionTests extends TestBase {
     app.goTo().homePage();
     if (app.contact().list().size() == 0) {
       app.goTo().addNewPage();
-      app.contact().createContact(new ContactData("Jhonson", "Mealnia",
-              null, null, "Moscow, Lenina str 15", groupName));
+      app.contact().createContact( new ContactData().withLastname("Petrova").withFirstname("Mealnia").
+              withAddress("Moscow, Lenina str 15").withGroup(groupName));
     }
 
   }

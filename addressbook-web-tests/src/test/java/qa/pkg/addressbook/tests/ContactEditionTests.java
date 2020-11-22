@@ -15,8 +15,8 @@ public class ContactEditionTests extends TestBase {
     app.goTo().homePage();
     if (!app.contact().isThereAContact()) {
       app.goTo().addNewPage();
-      app.contact().createContact(new ContactData("NEWWW", "Mealnia",
-              null, null, "Moscow, Lenina str 15", groupName));
+      app.contact().createContact(new ContactData().withLastname("Kudrevich").withFirstname("Mealnia").
+              withAddress("Moscow, Lenina str 15").withGroup(groupName));
     }
   }
   @Test
@@ -25,8 +25,9 @@ public class ContactEditionTests extends TestBase {
     app.goTo().homePage();
     List<ContactData> before = app.contact().list();
     int index=before.size() - 1;
-    ContactData contact = new ContactData(before.get(before.size() - 1).getContactId(), "Maroov", "Lost", "mail@mail.ru", "+375295464722",
-            "Moscow, Lenina str 15", groupName);
+    ContactData contact = new ContactData().withContactId(before.get(before.size() - 1).getContactId()).withLastname("Maroov")
+            .withFirstname("Lost").withEmail("mail@mail.ru").withHomePhone("+375295464722")
+            .withAddress("Moscow, Lenina str 15").withGroup(groupName);
 
     app.contact().edit(index, contact);
 
