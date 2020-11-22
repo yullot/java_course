@@ -6,6 +6,7 @@ public class GroupData {
   private int id = Integer.MAX_VALUE;
   private String groupName;
   private String header;
+  private String footer;
 
   public GroupData withId(int id) {
     this.id = id;
@@ -27,22 +28,6 @@ public class GroupData {
     return this;
   }
 
-  private String footer;
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    GroupData groupData = (GroupData) o;
-    return Objects.equals(groupName, groupData.groupName);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(groupName);
-  }
-
-
   public String getGroupName() {
     return groupName;
   }
@@ -57,6 +42,20 @@ public class GroupData {
 
   public int getId() {
     return id;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GroupData groupData = (GroupData) o;
+    return id == groupData.id &&
+            Objects.equals(groupName, groupData.groupName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, groupName);
   }
 
   @Override

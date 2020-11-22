@@ -7,6 +7,7 @@ import qa.pkg.addressbook.model.GroupData;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 public class GroupEditionTests extends TestBase {
 
@@ -14,26 +15,23 @@ public class GroupEditionTests extends TestBase {
   public void ensurePrecondition() {
     app.goTo().groupsPage();
     System.out.println("Group " + app.group().getNameGroup());
-    if (app.group().list().size() == 0) {
+    if (app.group().all().size() == 0) {
       app.group().createGroup(new GroupData().withGroupName("testGroup2").withHeader("header").withFooter("footer"));
     }
   }
 
   @Test
   public void testGroupEdition() {
-    List<GroupData> before = app.group().list();
-    int index = before.size() - 1;
-    GroupData group = new GroupData().withId(before.get(before.size() - 1).getId())
+    Set<GroupData> before = app.group().all();
+    GroupData editedGroup=before.iterator().next();
+    GroupData group = new GroupData().withId(editedGroup.getId())
             .withGroupName("testGroupEdit").withHeader("headerEdit").withFooter("footerEdit");
-    app.group().edit(index, group);
+    app.group().edit(group);
 
-    List<GroupData> after = app.group().list();
+    Set<GroupData> after = app.group().all();
     Assert.assertEquals(after.size(), before.size());
-    before.remove(before.size() - 1);
+    before.remove(editedGroup);
     before.add(group);
-    Comparator<? super GroupData> byId = Comparator.comparingInt(GroupData::getId);
-    before.sort(byId);
-    after.sort(byId);
     Assert.assertEquals(after, before);
   }
 }
