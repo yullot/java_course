@@ -5,8 +5,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import qa.pkg.addressbook.model.GroupData;
 
-import java.util.Comparator;
-import java.util.List;
 import java.util.Set;
 
 public class GroupEditionTests extends TestBase {
@@ -23,7 +21,7 @@ public class GroupEditionTests extends TestBase {
   @Test
   public void testGroupEdition() {
     Set<GroupData> before = app.group().all();
-    GroupData editedGroup=before.iterator().next();
+    GroupData editedGroup = before.iterator().next();
     GroupData group = new GroupData().withId(editedGroup.getId())
             .withGroupName("testGroupEdit").withHeader("headerEdit").withFooter("footerEdit");
     app.group().edit(group);

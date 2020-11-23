@@ -3,8 +3,7 @@ package qa.pkg.addressbook.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import qa.pkg.addressbook.model.GroupData;
-import java.util.Comparator;
-import java.util.List;
+
 import java.util.Set;
 
 public class GroupCreationTests extends TestBase {
@@ -18,7 +17,7 @@ public class GroupCreationTests extends TestBase {
 
     Set<GroupData> after = app.group().all();
     Assert.assertEquals(after.size(), before.size() + 1);
-    group.withId(after.stream().mapToInt((g)->g.getId()).max().getAsInt());
+    group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt());
     before.add(group);
     Assert.assertEquals(after, before);
   }
