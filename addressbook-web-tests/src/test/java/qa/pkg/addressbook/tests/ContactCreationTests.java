@@ -1,10 +1,16 @@
 package qa.pkg.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import qa.pkg.addressbook.model.ContactData;
+import qa.pkg.addressbook.model.Contacts;
 
 import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 public class ContactCreationTests extends TestBase {
 
@@ -13,15 +19,14 @@ public class ContactCreationTests extends TestBase {
   public void testContactCreation() {
     String groupName = app.group().getNameGroup();
     app.goTo().homePage();
-    Set<ContactData> before = app.contact().all();
+    Contacts before = app.contact().all();
     app.goTo().addNewPage();
     ContactData contact = new ContactData().withLastname("Ustinivich").withFirstname("Mealnia").
             withAddress("Moscow, Lenina str 15").withGroup(groupName);
     app.contact().createContact(contact);
-    Set<ContactData> after = app.contact().all();
-    Assert.assertEquals(after.size(), before.size() + 1);
-    contact.withContactId(after.stream().mapToInt((c)->c.getContactId()).max().getAsInt());
-    before.add(contact);
-    Assert.assertEquals(after, before);
+    Contacts after = app.contact().all();
+    assertThat(after.size(), equalTo(before.size() + 1));
+    assertThat(after, equalTo(before.withAdded(contact.
+            withContactId(after.stream().mapToInt((c) -> c.getContactId()).max().getAsInt()))));
   }
 }

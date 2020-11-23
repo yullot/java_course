@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import qa.pkg.addressbook.model.ContactData;
+import qa.pkg.addressbook.model.Contacts;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -114,9 +115,9 @@ public class ContactHelper extends HelperBase {
     return contacts;
   }
 
-  public Set<ContactData> all() {
+  public Contacts all() {
     List<WebElement> elements = wd.findElements(By.name("entry"));
-    Set<ContactData> contacts = new HashSet<ContactData>();
+    Contacts contacts = new Contacts();
     for (WebElement el : elements) {
       String firstName = el.findElement(By.xpath("td[3]")).getText();
       String lastName = el.findElement(By.xpath("td[2]")).getText();
