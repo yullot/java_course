@@ -116,7 +116,9 @@ public class ContactHelper extends HelperBase {
       String lastName = el.findElement(By.xpath("td[2]")).getText();
       int contactId = Integer.parseInt(el.findElement(By.xpath("td[1]/input")).getAttribute("id"));
       //System.out.println("name:" + firstName + " " + lastName + " " + contactId);
-      contacts.add(new ContactData().withContactId(contactId).withFirstname(firstName).withLastname(lastName));
+      String [] phones=el.findElement(By.xpath("td[6]")).getText().split("\n");
+      contacts.add(new ContactData().withContactId(contactId).withFirstname(firstName).withLastname(lastName).
+              withHomePhone(phones[0]).withMobilePhone(phones[1]).withWorkPhone(phones[2]));
     }
     System.out.println();
     return contacts;
