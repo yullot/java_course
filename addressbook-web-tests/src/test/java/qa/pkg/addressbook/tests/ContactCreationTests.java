@@ -22,6 +22,7 @@ public class ContactCreationTests extends TestBase {
     Contacts before = app.contact().all();
     app.goTo().addNewPage();
     ContactData contact = new ContactData().withLastname("Ustinivich").withFirstname("Mealnia").
+            withHomePhone("+7952764532").withMobilePhone("+37593994505").withWorkPhone("+37584930303").
             withAddress("Moscow, Lenina str 15").withGroup(groupName);
     app.contact().createContact(contact);
 

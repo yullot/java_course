@@ -23,12 +23,14 @@ public class ContactHelper extends HelperBase {
     fillInput(By.name("company"), "Yandex");
     fillInput(By.name("address"), contactData.getAddress());
     fillInput(By.name("home"), contactData.getHomePhone());
+    fillInput(By.name("mobile"), contactData.getMobilePhone());
+    fillInput(By.name("work"), contactData.getWorkPhone());
     fillInput(By.name("email"), contactData.getEmail());
     selectByVisibleText(By.name("bday"), "18");
     selectByVisibleText(By.name("bmonth"), "December");
     fillInput(By.name("byear"), "1980");
     fillInput(By.name("address2"), "Minsk, Lenina 124/12");
-    fillInput(By.name("phone2"), "12");
+    fillInput(By.name("phone2"), "+375295460722");
     fillInput(By.name("notes"), "Notes");
     if (creation) {
       selectByVisibleText(By.name("new_group"), contactData.getGroup());
@@ -102,8 +104,8 @@ public class ContactHelper extends HelperBase {
     return isElementPresent(By.name("selected[]"));
   }
 
-  public int count(){
-   return wd.findElements(By.name("selected[]")).size();
+  public int count() {
+    return wd.findElements(By.name("selected[]")).size();
   }
 
   public List<ContactData> list() {
@@ -136,6 +138,19 @@ public class ContactHelper extends HelperBase {
       contactCache.add(new ContactData().withContactId(contactId).withFirstname(firstName).withLastname(lastName));
     }
     return contactCache;
+  }
+
+  public ContactData infoFromEditForm(ContactData contact) {
+    clickEditContactBtnById(contact.getContactId());
+    String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+    String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+    String homePhone = wd.findElement(By.name("home")).getAttribute("value");
+    String mobilePhone = wd.findElement(By.name("mobile")).getAttribute("value");
+    String workPhone = wd.findElement(By.name("work")).getAttribute("value");
+    wd.navigate().back();
+    return new ContactData().withContactId(contact.getContactId()).withFirstname(firstname)
+            .withLastname(lastname).withHomePhone(homePhone).withMobilePhone(mobilePhone)
+            .withWorkPhone(workPhone);
   }
 }
 
