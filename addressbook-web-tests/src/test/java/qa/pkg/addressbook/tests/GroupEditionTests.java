@@ -30,6 +30,7 @@ public class GroupEditionTests extends TestBase {
     Groups after = app.group().all();
     assertThat(after.size(), equalTo(before.size()));
     assertThat(after,equalTo(before.without(editedGroup).withAdded(group)));
+   
   }
 }
 
