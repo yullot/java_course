@@ -21,16 +21,15 @@ public class GroupEditionTests extends TestBase {
 
   @Test
   public void testGroupEdition() {
-   Groups before = app.group().all();
+    Groups before = app.group().all();
     GroupData editedGroup = before.iterator().next();
     GroupData group = new GroupData().withId(editedGroup.getId())
             .withGroupName("testGroupEdit").withHeader("headerEdit").withFooter("footerEdit");
     app.group().edit(group);
-
+    assertThat(app.group().count(), equalTo(before.size()));
     Groups after = app.group().all();
-    assertThat(after.size(), equalTo(before.size()));
-    assertThat(after,equalTo(before.without(editedGroup).withAdded(group)));
-   
+    assertThat(after, equalTo(before.without(editedGroup).withAdded(group)));
+
   }
 }
 
