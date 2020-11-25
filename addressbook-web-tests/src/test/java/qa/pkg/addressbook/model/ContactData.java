@@ -12,6 +12,17 @@ public class ContactData {
   private String workPhone;
   private String address;
   private String group;
+  private String allPhones;
+
+  public String getAllPhones() {
+    return allPhones;
+  }
+
+  public ContactData withAllPhones(String allPhones) {
+    this.allPhones = allPhones;
+    return this;
+  }
+
 
   public ContactData withContactId(int contactId) {
     this.contactId = contactId;
@@ -42,6 +53,7 @@ public class ContactData {
     this.mobilePhone = mobilePhone;
     return this;
   }
+
   public ContactData withWorkPhone(String workPhone) {
     this.workPhone = workPhone;
     return this;
@@ -118,4 +130,6 @@ public class ContactData {
   public int hashCode() {
     return Objects.hash(contactId, firstname, lastname);
   }
+
+
 }
