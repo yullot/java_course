@@ -23,7 +23,7 @@ public class ContactCreationTests extends TestBase {
     app.goTo().addNewPage();
     ContactData contact = new ContactData().withLastname("Ustinivich").withFirstname("Mealnia").
             withHomePhone("+7952764532").withMobilePhone("+37593994505").withWorkPhone("+37584930303").
-            withAddress("Moscow, Lenina str 15").withGroup(groupName);
+            withAddress("Moscow, Lenina str 15").withGroup(groupName).withEmail("mail1@mail.ru").withEmail2("mail2@mail.ru");;
     app.contact().createContact(contact);
 
     assertThat(app.contact().count(), equalTo(before.size() + 1));
