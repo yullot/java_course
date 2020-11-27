@@ -1,5 +1,6 @@
 package qa.pkg.addressbook.model;
 
+import java.io.File;
 import java.util.Objects;
 
 public class ContactData {
@@ -16,7 +17,12 @@ public class ContactData {
   private String email2;
   private String email3;
   private String allEmails;
+  private File photo;
 
+  public ContactData withPhoto(File photo) {
+    this.photo = photo;
+    return this;
+  }
 
   public ContactData withEmail2(String email2) {
     this.email2 = email2;
@@ -33,8 +39,6 @@ public class ContactData {
     return this;
   }
 
-
-
   public String getAllPhones() {
     return allPhones;
   }
@@ -43,7 +47,6 @@ public class ContactData {
     this.allPhones = allPhones;
     return this;
   }
-
 
   public ContactData withContactId(int contactId) {
     this.contactId = contactId;
@@ -80,7 +83,6 @@ public class ContactData {
     return this;
   }
 
-
   public ContactData withAddress(String address) {
     this.address = address;
     return this;
@@ -90,6 +92,7 @@ public class ContactData {
     this.group = group;
     return this;
   }
+
   public String getFirstname() {
     return firstname;
   }
@@ -138,6 +141,10 @@ public class ContactData {
     return allEmails;
   }
 
+  public File getPhoto() {
+    return photo;
+  }
+
   @Override
   public String toString() {
     return "ContactData{" +
@@ -161,6 +168,4 @@ public class ContactData {
   public int hashCode() {
     return Objects.hash(contactId, firstname, lastname);
   }
-
-
 }

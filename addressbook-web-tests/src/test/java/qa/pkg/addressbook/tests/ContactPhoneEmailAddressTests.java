@@ -4,6 +4,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import qa.pkg.addressbook.model.ContactData;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -28,20 +29,18 @@ public class ContactPhoneEmailAddressTests extends TestBase {
     app.goTo().homePage();
     ContactData contact = app.contact().all().iterator().next();
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
-    assertThat(contact.getAllPhones(), equalTo(mergePhone(contactInfoFromEditForm)));
-    assertThat(contact.getAllEmails(), equalTo(mergeEmail(contactInfoFromEditForm)));
+    String[] arrayEmails = {contactInfoFromEditForm.getEmail(), contactInfoFromEditForm.getEmail2(),
+            contactInfoFromEditForm.getEmail3()};
+    String[] arrayPhones = {contactInfoFromEditForm.getHomePhone(), contactInfoFromEditForm.getMobilePhone(),
+            contactInfoFromEditForm.getWorkPhone()};
+    assertThat(contact.getAllPhones(), equalTo(merge(arrayPhones)));
+    assertThat(contact.getAllEmails(), equalTo(merge(arrayEmails)));
     assertThat(contact.getAddress().replaceAll("\\s", ""),
             equalTo(contactInfoFromEditForm.getAddress().replaceAll("\\s", "")));
   }
 
-  public String mergePhone(ContactData contact) {
-    return Arrays.asList(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone())
-            .stream().filter((s) -> !s.equals(""))
-            .map(ContactPhoneEmailAddressTests::cleaned).collect(Collectors.joining("\n"));
-  }
-
-  public String mergeEmail(ContactData contact) {
-    return Arrays.asList(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
+        public String merge(String[] array) {
+    return Arrays.asList(array)
             .stream().filter((s) -> !s.equals(""))
             .map(ContactPhoneEmailAddressTests::cleaned).collect(Collectors.joining("\n"));
   }

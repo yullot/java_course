@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import qa.pkg.addressbook.model.ContactData;
 import qa.pkg.addressbook.model.Contacts;
 
+import java.io.File;
 import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -21,9 +22,11 @@ public class ContactCreationTests extends TestBase {
     app.goTo().homePage();
     Contacts before = app.contact().all();
     app.goTo().addNewPage();
-    ContactData contact = new ContactData().withLastname("Ustinivich").withFirstname("Mealnia").
-            withHomePhone("+7952764532").withMobilePhone("+37593994505").withWorkPhone("+37584930303").
-            withAddress("Moscow, Lenina str 15").withGroup(groupName).withEmail("mail1@mail.ru").withEmail2("mail2@mail.ru");;
+    File photo =new File("src/test/resources/photo.jpg");
+    ContactData contact = new ContactData().withLastname("Verkivich").withFirstname("Mealnia").
+            withHomePhone("+7952764532").withWorkPhone("+37584930303").
+            withAddress("Moscow, Lenina str 15").withGroup(groupName).withEmail("mail1@mail.ru")
+            .withEmail2("mail2@mail.ru").withPhoto(photo);
     app.contact().createContact(contact);
 
     assertThat(app.contact().count(), equalTo(before.size() + 1));
@@ -31,4 +34,5 @@ public class ContactCreationTests extends TestBase {
     assertThat(after, equalTo(before.withAdded(contact.
             withContactId(after.stream().mapToInt((c) -> c.getContactId()).max().getAsInt()))));
   }
+
 }

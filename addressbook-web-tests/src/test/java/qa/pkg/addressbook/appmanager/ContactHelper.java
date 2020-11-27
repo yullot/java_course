@@ -8,6 +8,7 @@ import org.testng.Assert;
 import qa.pkg.addressbook.model.ContactData;
 import qa.pkg.addressbook.model.Contacts;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class ContactHelper extends HelperBase {
     fillInput(By.name("home"), contactData.getHomePhone());
     fillInput(By.name("mobile"), contactData.getMobilePhone());
     fillInput(By.name("work"), contactData.getWorkPhone());
+    attach(By.name("photo"), contactData.getPhoto());
     fillInput(By.name("email"), contactData.getEmail());
     fillInput(By.name("email2"), contactData.getEmail2());
     selectByVisibleText(By.name("bday"), "18");
@@ -35,6 +37,12 @@ public class ContactHelper extends HelperBase {
     if (creation) {
       selectByVisibleText(By.name("new_group"), contactData.getGroup());
     } else Assert.assertFalse(isElementPresent(By.name("new_group")));
+  }
+
+  protected void attach(By locator, File photo) {
+    if (photo != null) {
+      wd.findElement(locator).sendKeys(photo.getAbsolutePath());
+    }
   }
 
   private void selectByVisibleText(By locator, String value) {
@@ -135,12 +143,12 @@ public class ContactHelper extends HelperBase {
       String lastName = el.findElement(By.xpath("td[2]")).getText();
       int contactId = Integer.parseInt(el.findElement(By.xpath("td[1]/input")).getAttribute("id"));
       String allPhones = el.findElement(By.xpath("td[6]")).getText();
-      String allEmails=el.findElement(By.xpath("td[5]")).getText();
-      String address=el.findElement(By.xpath("td[4]")).getText();
+      String allEmails = el.findElement(By.xpath("td[5]")).getText();
+      String address = el.findElement(By.xpath("td[4]")).getText();
       contactCache.add(new ContactData().withContactId(contactId).withFirstname(firstName).withLastname(lastName).
               withAllPhones(allPhones).withAllEmails(allEmails).withAddress(address));
 
-      System.out.println("name:" + firstName + " " + lastName + " " + contactId+" "+allPhones);
+      System.out.println("name:" + firstName + " " + lastName + " " + contactId + " " + allPhones);
     }
     return contactCache;
   }
@@ -152,11 +160,10 @@ public class ContactHelper extends HelperBase {
     String homePhone = wd.findElement(By.name("home")).getAttribute("value");
     String mobilePhone = wd.findElement(By.name("mobile")).getAttribute("value");
     String workPhone = wd.findElement(By.name("work")).getAttribute("value");
-    String  email = wd.findElement(By.name("email")).getAttribute("value");
-    String  email2 = wd.findElement(By.name("email2")).getAttribute("value");
-    String  email3 = wd.findElement(By.name("email3")).getAttribute("value");
-    String  address = wd.findElement(By.name("address")).getText();
-    System.out.println("Address "+address);
+    String email = wd.findElement(By.name("email")).getAttribute("value");
+    String email2 = wd.findElement(By.name("email2")).getAttribute("value");
+    String email3 = wd.findElement(By.name("email3")).getAttribute("value");
+    String address = wd.findElement(By.name("address")).getText();
     wd.navigate().back();
     return new ContactData().withContactId(contact.getContactId()).withFirstname(firstname)
             .withLastname(lastname).withHomePhone(homePhone).withMobilePhone(mobilePhone)
