@@ -3,11 +3,16 @@ package qa.pkg.addressbook.tests;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import qa.pkg.addressbook.model.ContactData;
 import qa.pkg.addressbook.model.Contacts;
+import qa.pkg.addressbook.model.GroupData;
 
-import java.io.File;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -16,7 +21,7 @@ import static org.hamcrest.MatcherAssert.*;
 public class ContactCreationTests extends TestBase {
 
 
-  @Test
+  @Test (dataProvider = "validContacts")
   public void testContactCreation() {
     String groupName = app.group().getNameGroup();
     app.goTo().homePage();
