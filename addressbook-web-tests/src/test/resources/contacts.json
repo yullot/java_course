@@ -1,0 +1,29 @@
+[
+  {
+    "firstname": "Firstanme 0",
+    "lastname": "Last name 0",
+    "homePhone": "+79527645320",
+    "workPhone": "+375849303030",
+    "address": "Moscow, Lenina str 0",
+    "email": "mail0@mail.ru",
+    "email2": "mail0@mail.ru"
+  },
+  {
+    "firstname": "Firstanme 1",
+    "lastname": "Last name 1",
+    "homePhone": "+79527645321",
+    "workPhone": "+375849303031",
+    "address": "Moscow, Lenina str 1",
+    "email": "mail1@mail.ru",
+    "email2": "mail1@mail.ru"
+  },
+  {
+    "firstname": "Firstanme 2",
+    "lastname": "Last name 2",
+    "homePhone": "+79527645322",
+    "workPhone": "+375849303032",
+    "address": "Moscow, Lenina str 2",
+    "email": "mail2@mail.ru",
+    "email2": "mail2@mail.ru"
+  }
+]

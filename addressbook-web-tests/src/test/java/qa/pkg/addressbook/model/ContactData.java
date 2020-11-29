@@ -1,19 +1,28 @@
 package qa.pkg.addressbook.model;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.File;
 import java.util.Objects;
 
 public class ContactData {
   private int contactId = Integer.MAX_VALUE;
+  @Expose
   private String firstname;
+  @Expose
   private String lastname;
+  @Expose
   private String homePhone;
   private String mobilePhone;
+  @Expose
   private String workPhone;
+  @Expose
   private String address;
   private String group;
   private String allPhones;
+  @Expose
   private String email;
+  @Expose
   private String email2;
   private String email3;
   private String allEmails;
