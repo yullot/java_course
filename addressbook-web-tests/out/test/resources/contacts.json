@@ -1,6 +1,5 @@
 [
   {
-    "contactId": 2147483647,
     "firstname": "Firstanme 0",
     "lastname": "Last name 0",
     "homePhone": "+79527645320",
@@ -10,7 +9,6 @@
     "email2": "mail0@mail.ru"
   },
   {
-    "contactId": 2147483647,
     "firstname": "Firstanme 1",
     "lastname": "Last name 1",
     "homePhone": "+79527645321",
@@ -20,7 +18,6 @@
     "email2": "mail1@mail.ru"
   },
   {
-    "contactId": 2147483647,
     "firstname": "Firstanme 2",
     "lastname": "Last name 2",
     "homePhone": "+79527645322",
