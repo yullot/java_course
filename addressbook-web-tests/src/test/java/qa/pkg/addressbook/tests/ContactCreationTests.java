@@ -21,13 +21,13 @@ import static org.hamcrest.MatcherAssert.*;
 public class ContactCreationTests extends TestBase {
 
 
-  @Test (dataProvider = "validContacts")
+  @Test(dataProvider = "validContacts")
   public void testContactCreation() {
     String groupName = app.group().getNameGroup();
     app.goTo().homePage();
     Contacts before = app.contact().all();
     app.goTo().addNewPage();
-    File photo =new File("src/test/resources/photo.jpg");
+    File photo = new File("src/test/resources/photo.jpg");
     ContactData contact = new ContactData().withLastname("Verkivich").withFirstname("Mealnia").
             withHomePhone("+7952764532").withWorkPhone("+37584930303").
             withAddress("Moscow, Lenina str 15").withGroup(groupName).withEmail("mail1@mail.ru")
