@@ -1,5 +1,7 @@
 package qa.pkg.addressbook.tests;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import qa.pkg.addressbook.model.GroupData;
@@ -9,6 +11,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupDeletionTests extends TestBase {
+  Logger logger= LoggerFactory.getLogger(GroupDeletionTests.class);
 
   @BeforeMethod
   public void ensurePrecondition() {
@@ -21,11 +24,13 @@ public class GroupDeletionTests extends TestBase {
 
   @Test
   public void testGroupDeletion() {
+    logger.info("Start testGroupDeletion");
     Groups before = app.group().all();
     GroupData deletedGroup = before.iterator().next();
     app.group().delete(deletedGroup);
     assertThat(app.group().count(), equalTo(before.size()-1));
     Groups after = app.group().all();
     assertThat(after, equalTo(before.without(deletedGroup)));
+    logger.info("Stop testGroupDeletion");
   }
 }
