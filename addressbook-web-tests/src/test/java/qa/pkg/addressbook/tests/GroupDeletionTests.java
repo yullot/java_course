@@ -11,13 +11,13 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupDeletionTests extends TestBase {
-  Logger logger= LoggerFactory.getLogger(GroupDeletionTests.class);
+  Logger logger = LoggerFactory.getLogger(GroupDeletionTests.class);
 
   @BeforeMethod
   public void ensurePrecondition() {
-    app.goTo().groupsPage();
-    System.out.println("Group " + app.group().getNameGroup());
-    if (app.group().all().size() == 0) {
+    if (app.db().groups().size() == 0) {
+      app.goTo().groupsPage();
+      System.out.println("Group " + app.group().getNameGroup());
       app.group().createGroup(new GroupData().withGroupName("testGroup2").withHeader("header").withFooter("footer"));
     }
   }
@@ -25,11 +25,12 @@ public class GroupDeletionTests extends TestBase {
   @Test
   public void testGroupDeletion() {
     logger.info("Start testGroupDeletion");
-    Groups before = app.group().all();
+    Groups before = app.db().groups();
     GroupData deletedGroup = before.iterator().next();
+    app.goTo().groupsPage();
     app.group().delete(deletedGroup);
-    assertThat(app.group().count(), equalTo(before.size()-1));
-    Groups after = app.group().all();
+    assertThat(app.group().count(), equalTo(before.size() - 1));
+    Groups after = app.db().groups();
     assertThat(after, equalTo(before.without(deletedGroup)));
     logger.info("Stop testGroupDeletion");
   }
