@@ -9,7 +9,6 @@ import qa.pkg.addressbook.model.ContactData;
 import qa.pkg.addressbook.model.Contacts;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ContactHelper extends HelperBase {
@@ -26,7 +25,6 @@ public class ContactHelper extends HelperBase {
     fillInput(By.name("home"), contactData.getHomePhone());
     fillInput(By.name("mobile"), contactData.getMobilePhone());
     fillInput(By.name("work"), contactData.getWorkPhone());
-    attach(By.name("photo"), contactData.getPhoto());
     fillInput(By.name("email"), contactData.getEmail());
     fillInput(By.name("email2"), contactData.getEmail2());
     selectByVisibleText(By.name("bday"), "18");
@@ -37,6 +35,10 @@ public class ContactHelper extends HelperBase {
     if (creation) {
       selectByVisibleText(By.name("new_group"), contactData.getGroup());
     } else Assert.assertFalse(isElementPresent(By.name("new_group")));
+
+    if (creation) {
+      attach(By.name("photo"), contactData.getPhoto());
+    }
   }
 
   protected void attach(By locator, File photo) {

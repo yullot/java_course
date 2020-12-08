@@ -6,55 +6,56 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
+
 @Entity //for work with hibernate
-@Table(name="addressbook")
+@Table(name = "addressbook")
 public class ContactData {
   @Id
-  @Column(name="id")
+  @Column(name = "id")
   private int contactId = Integer.MAX_VALUE;
- // @Expose
-  @Column(name="firstname")
+  // @Expose
+  @Column(name = "firstname")
   private String firstname;
   @Expose
-  @Column(name="lastname")
+  @Column(name = "lastname")
   private String lastname;
- //@Expose
-  @Column(name="home")
-  @Type(type="text")
+  //@Expose
+  @Column(name = "home")
+  @Type(type = "text")
   private String homePhone;
-  @Column(name="mobile")
-  @Type(type="text")
+  @Column(name = "mobile")
+  @Type(type = "text")
   private String mobilePhone;
   //@Expose
-  @Column(name="work")
-  @Type(type="text")
+  @Column(name = "work")
+  @Type(type = "text")
   private String workPhone;
   //@Expose
-  @Column(name="address")
-  @Type(type="text")
+  @Column(name = "address")
+  @Type(type = "text")
   private String address;
   @Transient
   private String group;
   @Transient
   private String allPhones;
   //@Expose
-  @Column(name="email")
-  @Type(type="text")
+  @Column(name = "email")
+  @Type(type = "text")
   private String email;
   //@Expose
-  @Column(name="email2")
-  @Type(type="text")
+  @Column(name = "email2")
+  @Type(type = "text")
   private String email2;
-  @Column(name="email3")
-  @Type(type="text")
+  @Column(name = "email3")
+  @Type(type = "text")
   private String email3;
   @Transient
   private String allEmails;
-  @Column(name="photo")
-  @Type(type="text")
+  @Column(name = "photo")
+  @Type(type = "text")
   private String photo;
 
-  public ContactData withPhoto( File photo) {
+  public ContactData withPhoto(File photo) {
     this.photo = photo.getPath();
     return this;
   }
@@ -116,6 +117,24 @@ public class ContactData {
   public ContactData withWorkPhone(String workPhone) {
     this.workPhone = workPhone;
     return this;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ContactData that = (ContactData) o;
+    return contactId == that.contactId &&
+            Objects.equals(firstname, that.firstname) &&
+            Objects.equals(lastname, that.lastname) &&
+            Objects.equals(homePhone, that.homePhone) &&
+            Objects.equals(address, that.address) &&
+            Objects.equals(email, that.email);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(contactId, firstname, lastname, homePhone, address, email);
   }
 
   public ContactData withAddress(String address) {
@@ -189,18 +208,4 @@ public class ContactData {
             '}';
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    ContactData that = (ContactData) o;
-    return contactId == that.contactId &&
-            Objects.equals(firstname, that.firstname) &&
-            Objects.equals(lastname, that.lastname);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(contactId, firstname, lastname);
-  }
 }
