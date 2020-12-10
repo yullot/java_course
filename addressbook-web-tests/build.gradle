@@ -19,6 +19,9 @@ dependencies {
     implementation 'org.hibernate:hibernate-java8:5.4.20.Final'
     //implementation 'org.hibernate:hibernate-core:5.4.24.Final'
 }
+/**
+ * added property for launching tests via cmd
+ */
 
 task testContacts(type: Test) {
     useTestNG {
@@ -30,7 +33,11 @@ task testContacts(type: Test) {
     if (project.hasProperty('target')) {
         systemProperty('target', "${target}")
     }
+    if (project.hasProperty('verifyUI')) {
+        systemProperty('verifyUI', "${verifyUI}")
+    }
 }
+
 
 task testGroups(type: Test) {
     useTestNG {
@@ -41,5 +48,8 @@ task testGroups(type: Test) {
     }
     if (project.hasProperty('target')) {
         systemProperty('target', "${target}")
+    }
+    if (project.hasProperty('verifyUI')) {
+        systemProperty('verifyUI', "${verifyUI}")
     }
 }
