@@ -66,13 +66,13 @@ public class GroupHelper extends HelperBase {
    * and if there any existed group=> return group name
    * else return "[none]" value- value from AddNewContactForm
    */
-  public String getNameGroup() {
+/*  public String getNameGroup() {
     click(By.linkText("groups"));
     if (isThereAGroup()) {
       return wd.findElement(By.xpath("//div[@id='content']/form/span")).getText();
     }
     return "[none]";
-  }
+  }*/
 
   public int count() {
     return wd.findElements(By.name("selected[]")).size();

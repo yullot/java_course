@@ -2,10 +2,13 @@ package qa.pkg.addressbook.tests;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import qa.pkg.addressbook.model.ContactData;
 import qa.pkg.addressbook.model.Contacts;
+import qa.pkg.addressbook.model.GroupData;
+import qa.pkg.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -36,19 +39,25 @@ public class ContactCreationTests extends TestBase {
     }
   }
 
+  @BeforeMethod
+  public void ensurePrecondition() {
+    if (app.db().groups().size() == 0) {
+      app.goTo().groupsPage();
+      app.group().createGroup(new GroupData().withGroupName("testGroup2").withHeader("header").withFooter("footer"));
+    }
+  }
 
-  @Test(dataProvider = "validContactsAsJson")
-  public void testContactCreation(ContactData contact) {
-    String groupName = app.group().getNameGroup();
+  @Test//(dataProvider = "validContactsAsJson")
+  public void testContactCreation() {
+    Groups groups = app.db().groups();
+    File photo = new File("src/test/resources/photo.jpg");
+    ContactData contact = new ContactData().withLastname("Verkivich").withFirstname("Mealnia").
+            withHomePhone("+7952764532").withWorkPhone("+37584930303").
+            withAddress("Moscow, Lenina str 15").withEmail("mail1@mail.ru")
+            .withEmail2("mail2@mail.ru").withPhoto(photo).withGroup(groups.stream().iterator().next());
     app.goTo().homePage();
     Contacts before = app.db().contacts();
     app.goTo().addNewPage();
-    File photo = new File("src/test/resources/photo.jpg");
-    /*ContactData contact = new ContactData().withLastname("Verkivich").withFirstname("Mealnia").
-            withHomePhone("+7952764532").withWorkPhone("+37584930303").
-            withAddress("Moscow, Lenina str 15").withGroup(groupName).withEmail("mail1@mail.ru")
-            .withEmail2("mail2@mail.ru").withPhoto(photo);*/
-    contact.withGroup(groupName).withPhoto(photo);
     app.contact().createContact(contact);
 
     assertThat(app.contact().count(), equalTo(before.size() + 1));

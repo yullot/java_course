@@ -5,7 +5,9 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity //for work with hibernate
 @Table(name = "addressbook")
@@ -35,8 +37,6 @@ public class ContactData {
   @Type(type = "text")
   private String address;
   @Transient
-  private String group;
-  @Transient
   private String allPhones;
   //@Expose
   @Column(name = "email")
@@ -54,6 +54,31 @@ public class ContactData {
   @Column(name = "photo")
   @Type(type = "text")
   private String photo;
+  /*@Transient
+  private String groupSingle;*/
+  @ManyToMany (fetch = FetchType.EAGER) //to load many data from DB
+  @JoinTable (name="address_in_groups",
+          joinColumns = @JoinColumn(name="id"), inverseJoinColumns = @JoinColumn(name="group_id"))
+  private Set<GroupData> groups= new HashSet<>();
+
+  public Groups getGroups() {
+    return new Groups(groups);
+  }
+
+ public ContactData withGroup(GroupData group) {
+    groups.add(group);
+    return this;
+  }
+
+ /*  public String getGroup() {
+    return groupSingle;
+  }
+
+  public ContactData withGroup(String groupSingle) {
+    this.groupSingle = groupSingle;
+    return this;
+  }*/
+
 
   public ContactData withPhoto(File photo) {
     this.photo = photo.getPath();
@@ -142,10 +167,6 @@ public class ContactData {
     return this;
   }
 
-  public ContactData withGroup(String group) {
-    this.group = group;
-    return this;
-  }
 
   public String getFirstname() {
     return firstname;
@@ -173,10 +194,6 @@ public class ContactData {
 
   public String getAddress() {
     return address;
-  }
-
-  public String getGroup() {
-    return group;
   }
 
   public int getContactId() {

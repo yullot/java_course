@@ -33,7 +33,7 @@ public class ContactHelper extends HelperBase {
     fillInput(By.name("address2"), contactData.getAddress());
     fillInput(By.name("notes"), "Notes");
     if (creation) {
-      selectByVisibleText(By.name("new_group"), contactData.getGroup());
+      selectByVisibleText(By.name("new_group"), contactData.getGroups().stream().iterator().next().getGroupName());
     } else Assert.assertFalse(isElementPresent(By.name("new_group")));
 
     if (creation) {

@@ -3,6 +3,7 @@ package qa.pkg.addressbook.tests;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import qa.pkg.addressbook.model.ContactData;
+import qa.pkg.addressbook.model.Groups;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,12 +16,13 @@ public class ContactPhoneEmailAddressTests extends TestBase {
 
   @BeforeMethod
   public void ensurePrecondition() {
-    String groupName = app.group().getNameGroup();
-    app.goTo().homePage();
-    if (app.contact().all().size() == 0) {
+    Groups groups=app.db().groups();
+    if (app.db().contacts().size() == 0) {
+      //String groupName = app.group().getNameGroup();
+      app.goTo().homePage();
       app.goTo().addNewPage();
       app.contact().createContact(new ContactData().withLastname("Petrova").withFirstname("Mealnia").
-              withAddress("Barnaul, Lenina str 15").withGroup(groupName));
+              withAddress("Moscow, Lenina str 15").withGroup(groups.stream().iterator().next()));
     }
   }
 

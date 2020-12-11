@@ -3,16 +3,12 @@ package qa.pkg.addressbook.tests;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import qa.pkg.addressbook.model.ContactData;
-import qa.pkg.addressbook.model.Contacts;
 import qa.pkg.addressbook.model.GroupData;
 import qa.pkg.addressbook.model.Groups;
 
 import java.io.File;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-
-public class ContactDeletionTests extends TestBase {
+public class ContactAdditionToGroup extends TestBase{
   @BeforeMethod
   public void ensurePrecondition() {
     if (app.db().groups().size() == 0) {
@@ -28,16 +24,8 @@ public class ContactDeletionTests extends TestBase {
               withAddress("Moscow, Lenina str 15").withGroup(groups.stream().iterator().next()).withPhoto(photo));
     }
   }
-
   @Test
-  public void testContactDeletion() {
-    Contacts before = app.db().contacts();
-    ContactData deletedContact = before.iterator().next();
-    app.contact().delete(deletedContact);
-    app.goTo().waitForHomePage();
+  public void testContactAddittionToGroup(){
 
-    assertThat(app.contact().count(), equalTo(before.size() - 1));
-    Contacts after = app.db().contacts();
-    assertThat(after, equalTo(before.without(deletedContact)));
   }
 }
