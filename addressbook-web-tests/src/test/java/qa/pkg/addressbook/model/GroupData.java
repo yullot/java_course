@@ -3,6 +3,7 @@ package qa.pkg.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -31,8 +32,15 @@ public class GroupData {
   @Column(name = "group_footer")
   @Type(type = "text")
   private String footer;
-  @ManyToMany(mappedBy = "groups")
+
+  public void setContacts(Set<ContactData> contacts) {
+    this.contacts = contacts;
+  }
+
+  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "groups")
   private Set<ContactData> contacts = new HashSet<>();
+
+
 
   public Contacts getContacts() {
     return new Contacts(contacts);

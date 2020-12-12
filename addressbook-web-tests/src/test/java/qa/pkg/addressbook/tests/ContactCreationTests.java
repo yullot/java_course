@@ -51,10 +51,10 @@ public class ContactCreationTests extends TestBase {
   public void testContactCreation() {
     Groups groups = app.db().groups();
     File photo = new File("src/test/resources/photo.jpg");
-    ContactData contact = new ContactData().withLastname("Verkivich").withFirstname("Mealnia").
+    ContactData contact = new ContactData().withLastname("Elton").withFirstname("John").
             withHomePhone("+7952764532").withWorkPhone("+37584930303").
-            withAddress("Moscow, Lenina str 15").withEmail("mail1@mail.ru")
-            .withEmail2("mail2@mail.ru").withPhoto(photo).withGroup(groups.stream().iterator().next());
+            withAddress("USA, Los Angeles, Lenina str 15").withEmail("mail1@mail.ru")
+            .withEmail2("mail2@mail.ru").withPhoto(photo);//.withGroup(groups.stream().iterator().next());
     app.goTo().homePage();
     Contacts before = app.db().contacts();
     app.goTo().addNewPage();

@@ -25,7 +25,7 @@ public class ContactDeletionTests extends TestBase {
       app.goTo().homePage();
       app.goTo().addNewPage();
       app.contact().createContact(new ContactData().withLastname("Kudrevich").withFirstname("Martha").
-              withAddress("Moscow, Lenina str 15").withGroup(groups.stream().iterator().next()).withPhoto(photo));
+              withAddress("Moscow, Lenina str 15").withPhoto(photo));//.withGroup(groups.stream().iterator().next())
     }
   }
 

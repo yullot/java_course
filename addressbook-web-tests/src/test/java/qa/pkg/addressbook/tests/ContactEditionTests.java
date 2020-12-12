@@ -25,7 +25,7 @@ public class ContactEditionTests extends TestBase {
        app.goTo().homePage();
       app.goTo().addNewPage();
       app.contact().createContact(new ContactData().withLastname("Kudrevich").withFirstname("Martha").
-              withAddress("Moscow, Lenina str 15").withGroup(groups.stream().iterator().next()).withPhoto(photo));
+              withAddress("Moscow, Lenina str 15").withPhoto(photo));//withGroup(groups.stream().iterator().next())
     }
   }
 
@@ -37,7 +37,7 @@ public class ContactEditionTests extends TestBase {
     ContactData editContact = before.iterator().next();
     ContactData contact = new ContactData().withContactId(editContact.getContactId()).withLastname("Maroov")
             .withFirstname("Lost").withEmail("mail@mail.ru").withHomePhone("+375295464722")
-            .withAddress("London, Lenina str 15 dsds").withGroup(groups.stream().iterator().next());
+            .withAddress("London, Lenina str 15 dsds");//.withGroup(groups.stream().iterator().next());
 
     app.contact().edit(contact);
 

@@ -1,6 +1,7 @@
 package qa.pkg.addressbook.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -56,7 +57,7 @@ public class ContactData {
   private String photo;
   /*@Transient
   private String groupSingle;*/
-  @ManyToMany (fetch = FetchType.EAGER) //to load many data from DB
+  @ManyToMany (fetch = FetchType.EAGER) //to load all children data from DB
   @JoinTable (name="address_in_groups",
           joinColumns = @JoinColumn(name="id"), inverseJoinColumns = @JoinColumn(name="group_id"))
   private Set<GroupData> groups= new HashSet<>();
@@ -69,16 +70,6 @@ public class ContactData {
     groups.add(group);
     return this;
   }
-
- /*  public String getGroup() {
-    return groupSingle;
-  }
-
-  public ContactData withGroup(String groupSingle) {
-    this.groupSingle = groupSingle;
-    return this;
-  }*/
-
 
   public ContactData withPhoto(File photo) {
     this.photo = photo.getPath();

@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import qa.pkg.addressbook.model.ContactData;
 import qa.pkg.addressbook.model.Contacts;
+import qa.pkg.addressbook.model.GroupData;
 
 import java.io.File;
 import java.util.List;
@@ -32,10 +33,10 @@ public class ContactHelper extends HelperBase {
     fillInput(By.name("byear"), "1980");
     fillInput(By.name("address2"), contactData.getAddress());
     fillInput(By.name("notes"), "Notes");
-    if (creation) {
+    /*if (creation) {
       selectByVisibleText(By.name("new_group"), contactData.getGroups().stream().iterator().next().getGroupName());
     } else Assert.assertFalse(isElementPresent(By.name("new_group")));
-
+*/
     if (creation) {
       attach(By.name("photo"), contactData.getPhoto());
     }
@@ -57,6 +58,10 @@ public class ContactHelper extends HelperBase {
 
   public void returnToHomePage() {
     click(By.linkText("home page"));
+  }
+
+  public void returnToHomePageWithSelectedGroup(GroupData group) {
+    click(By.linkText("group page \""+group.getGroupName()+"\""));
   }
 
   public void clickEditContactBtn(int index) {
@@ -81,6 +86,22 @@ public class ContactHelper extends HelperBase {
     clickDeleteBtn();
     contactCache = null;
     confirmAlert();
+  }
+
+  public void addGroupTo(ContactData contact, GroupData group) {
+    selectContactById(contact.getContactId());
+    selectGroup(group);
+    clickAddTo();
+    returnToHomePageWithSelectedGroup(group);
+  }
+
+  private void selectGroup(GroupData group) {
+   // new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getGroupName());
+    wd.findElement(By.xpath("(//option[@value='"+group.getId()+"'])[2]")).click();
+  }
+
+  private void clickAddTo() {
+    click(By.cssSelector("input[name='add']"));
   }
 
   public void clickUpdateBtn() {
@@ -172,5 +193,7 @@ public class ContactHelper extends HelperBase {
             .withWorkPhone(workPhone).withEmail(email).withEmail2(email2)
             .withEmail3(email3).withAddress(address);
   }
+
+
 }
 

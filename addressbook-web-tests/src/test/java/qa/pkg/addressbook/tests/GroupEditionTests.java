@@ -22,7 +22,7 @@ public class GroupEditionTests extends TestBase {
     Groups before = app.db().groups();
     GroupData editedGroup = before.iterator().next();
     GroupData group = new GroupData().withId(editedGroup.getId())
-            .withGroupName("testGroupEdit").withHeader("headerEdit").withFooter("footerEdit");
+            .withGroupName("testGroupEdit2").withHeader("headerEdit2").withFooter("footerEdit2");
     app.goTo().groupsPage();
     app.group().edit(group);
     assertThat(app.group().count(), equalTo(before.size()));
