@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@Entity //for work with hibernate
+@Entity  //for work with hibernate
 @Table(name = "addressbook")
 public class ContactData {
   @Id
@@ -60,6 +60,9 @@ public class ContactData {
   @ManyToMany (fetch = FetchType.EAGER) //to load all children data from DB
   @JoinTable (name="address_in_groups",
           joinColumns = @JoinColumn(name="id"), inverseJoinColumns = @JoinColumn(name="group_id"))
+  /*@OneToMany (mappedBy = "contact",
+  cascade = CascadeType.ALL,
+  orphanRemoval = true)*/
   private Set<GroupData> groups= new HashSet<>();
 
   public Groups getGroups() {

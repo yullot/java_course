@@ -38,7 +38,7 @@ public class ContactAdditionToGroup extends TestBase {
     } else {
       ContactData selectedContact = app.db().contacts().iterator().next();
       logger.info("***Selected contact in precondition " + selectedContact);
-      Groups groupsOfContact = app.db().contactSingle(selectedContact.getContactId()).getGroups();
+      Groups groupsOfContact = app.db().contactById(selectedContact.getContactId()).getGroups();
       logger.info("***Groups of contact " + groupsOfContact);
       Groups groups = app.db().groups();
       if (groups.equals(groupsOfContact)) {
@@ -55,7 +55,7 @@ public class ContactAdditionToGroup extends TestBase {
     app.goTo().homePage();
     ContactData selectedContact = app.db().contacts().iterator().next();
     logger.info("!!!Selected contact " + selectedContact);
-    Groups beforeGroupListOfContact = app.db().contactSingle(selectedContact.getContactId()).getGroups();
+    Groups beforeGroupListOfContact = app.db().contactById(selectedContact.getContactId()).getGroups();
     GroupData addedGroup = new GroupData();
     if (beforeGroupListOfContact.size() != 0) {
       addedGroup = beforeGroupListOfContact.iterator().next();
@@ -63,13 +63,13 @@ public class ContactAdditionToGroup extends TestBase {
     for (GroupData group : groups) {
       logger.info("!!!Group " + group + " vs AddedGroup " + addedGroup);
       if (!group.equals(addedGroup)) {
-        addedGroup = app.db().groupSingle(group.getId());
+        addedGroup = app.db().groupById(group.getId());
         logger.info("!!!return " + addedGroup);
         break;
       }
     }
     app.contact().addGroupTo(selectedContact, addedGroup);
-    Groups afterGroupListOfContact = app.db().contactSingle(selectedContact.getContactId()).getGroups();
+    Groups afterGroupListOfContact = app.db().contactById(selectedContact.getContactId()).getGroups();
     assertThat(afterGroupListOfContact, equalTo(beforeGroupListOfContact.withAdded(addedGroup)));
   }
 }

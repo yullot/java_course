@@ -10,7 +10,6 @@ import qa.pkg.addressbook.model.Contacts;
 import qa.pkg.addressbook.model.GroupData;
 import qa.pkg.addressbook.model.Groups;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DBHelper {
@@ -24,10 +23,6 @@ public class DBHelper {
     sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
   }
 
-  public Session getSession() {
-    return sessionFactory.openSession();
-  }
-
   public Groups groups() {
     Session session = sessionFactory.openSession();
     session.beginTransaction();
@@ -39,40 +34,40 @@ public class DBHelper {
 
 
   public Contacts contacts() {
-     Session session = sessionFactory.openSession();
+    Session session = sessionFactory.openSession();
     session.beginTransaction();
-    List<ContactData>  result = session.createQuery("from ContactData where deprecated ='0000-00-00'").list();
+    List<ContactData> result = session.createQuery("from ContactData where deprecated ='0000-00-00 00:00:00'").list();
     session.getTransaction().commit();
     session.close();
     return new Contacts(result);
   }
 
-  public Contacts contacts(Integer max) {
+ /* public Contacts contacts(Integer max) {
     List<ContactData> result = new ArrayList<>();
     Session session = sessionFactory.openSession();
     session.beginTransaction();
     if (max == null) {
       return contacts();
     } else {
-      result = session.createQuery("from ContactData where deprecated ='0000-00-00'").setMaxResults(max).list();
+      result = session.createQuery("from ContactData where deprecated ='0000-00-00 00:00:00'").setMaxResults(max).list();
     }
     session.getTransaction().commit();
     session.close();
     return new Contacts(result);
-  }
+  }*/
 
-  public ContactData contactSingle(int id) {
+  public ContactData contactById(int id) {
     Session session = sessionFactory.openSession();
-//    session.beginTransaction();
+    session.beginTransaction();
     ContactData result = (ContactData) session
-            .createQuery(String.format("from ContactData where deprecated ='0000-00-00' and id=%s", id))
+            .createQuery(String.format("from ContactData where deprecated ='0000-00-00 00:00:00' and id=%s", id))
             .getSingleResult();
-//    session.getTransaction().commit();
+    session.getTransaction().commit();
     session.close();
     return result;
   }
 
-  public GroupData groupSingle(int id) {
+  public GroupData groupById(int id) {
     Session session = sessionFactory.openSession();
     session.beginTransaction();
     GroupData result = (GroupData) session.createQuery(String.format("from GroupData where id=%s", id)).getSingleResult();

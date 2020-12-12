@@ -3,7 +3,6 @@ package qa.pkg.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
-import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -12,7 +11,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @XStreamAlias("group")
-@Entity //for work with hibernate
+@Entity//for work with hibernate
 @Table(name = "group_list")
 
 public class GroupData {
@@ -37,10 +36,11 @@ public class GroupData {
     this.contacts = contacts;
   }
 
-  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "groups")
+  @ManyToMany(fetch = FetchType.EAGER, mappedBy = "groups")
+  /*@OneToMany(mappedBy = "group",
+          cascade = CascadeType.ALL,
+          orphanRemoval = true)*/
   private Set<ContactData> contacts = new HashSet<>();
-
-
 
   public Contacts getContacts() {
     return new Contacts(contacts);

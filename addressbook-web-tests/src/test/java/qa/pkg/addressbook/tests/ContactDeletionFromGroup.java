@@ -1,8 +1,5 @@
 package qa.pkg.addressbook.tests;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeMethod;
@@ -12,13 +9,14 @@ import qa.pkg.addressbook.model.Contacts;
 import qa.pkg.addressbook.model.GroupData;
 
 import java.io.File;
-import java.util.Collections;
-import java.util.HashSet;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactDeletionFromGroup extends TestBase {
   Logger logger = LoggerFactory.getLogger(ContactDeletionFromGroup.class);
 
-  @Test
+  @BeforeMethod
   public void ensurePrecondition() {
     /**
      * Check whether any contact exists
@@ -33,27 +31,42 @@ public class ContactDeletionFromGroup extends TestBase {
 
     /**
      * If no groups -> create a new one
-     * Check whether group has assigned
      */
     if (app.db().groups().size() == 0) {
       app.goTo().groupsPage();
-      app.group().createGroup(new GroupData().withGroupName("testGroupNew").withHeader("header").withFooter("footer"));
+      app.group().createGroup(new GroupData().withGroupName("testGroupNew2").withHeader("header2").withFooter("footer2"));
     }
+    /**
+     * Get list of Contacts for selectedGroup
+     * if no contact-> add contact to group
+     */
+
     GroupData selectedGroup = app.db().groups().iterator().next();
     logger.info("***Selected group in precondition " + selectedGroup);
-    Contacts contactsOfGroup = app.db().groupSingle(selectedGroup.getId()).getContacts();
-    logger.info("***Contacts og group " + contactsOfGroup);
+    Contacts contactsOfGroup = app.db().groupById(selectedGroup.getId()).getContacts();
+    logger.info("***Contacts oF group " + contactsOfGroup);
 
     if (contactsOfGroup.size() == 0) {
-
-      /*Session session = app.db().getSession();
-      Transaction tr = session.beginTransaction();
-      selectedGroup.setContacts(app.db().contacts(2));
-      selectedGroup.setDeprecated("0000-00-00 00:00:00");
-      session.save(selectedGroup);
-      tr.commit();
-      session.close();*/
+      app.goTo().homePage();
+      ContactData selectedContact = app.db().contacts().iterator().next();
+      app.contact().addGroupTo(selectedContact, selectedGroup);
+      logger.info("***Contacts of group after adding " + app.db().groupById(selectedGroup.getId()).getContacts());
     }
+  }
+
+  @Test
+  public void testContactDeletionFromGroup() {
+    app.goTo().homePage();
+    GroupData selectedGroup = app.db().groups().iterator().next();
+    Contacts beforeContactsListOfGroup = app.db().groupById(selectedGroup.getId()).getContacts();
+    logger.info("!!!Contacts List Of Group " + selectedGroup + " is " + beforeContactsListOfGroup);
+    ContactData selectedContact = beforeContactsListOfGroup.iterator().next();
+
+    app.contact().deleteContactFromGroup(selectedContact,selectedGroup);
+
+    Contacts afterContactsListOfGroup = app.db().groupById(selectedGroup.getId()).getContacts();
+    logger.info("!!!Contacts List Of Group " + selectedGroup + " is " + afterContactsListOfGroup);
+    assertThat(afterContactsListOfGroup, equalTo(beforeContactsListOfGroup.without(selectedContact)));
   }
 }
 
