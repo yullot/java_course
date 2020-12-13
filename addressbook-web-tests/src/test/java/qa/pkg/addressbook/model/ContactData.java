@@ -6,6 +6,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -55,22 +56,26 @@ public class ContactData {
   @Column(name = "photo")
   @Type(type = "text")
   private String photo;
+
+  @Column(name = "deprecated")
+  private Date deprecated = new Date();
   /*@Transient
   private String groupSingle;*/
-  @ManyToMany (fetch = FetchType.EAGER) //to load all children data from DB
-  @JoinTable (name="address_in_groups",
-          joinColumns = @JoinColumn(name="id"), inverseJoinColumns = @JoinColumn(name="group_id"))
-  /*@OneToMany (mappedBy = "contact",
-  cascade = CascadeType.ALL,
-  orphanRemoval = true)*/
-  private Set<GroupData> groups= new HashSet<>();
+//  @ManyToMany (fetch = FetchType.EAGER) //to load all children data from DB
+//  @JoinTable (name="address_in_groups",
+//          joinColumns = @JoinColumn(name="id"), inverseJoinColumns = @JoinColumn(name="group_id"))
+  @OneToMany(mappedBy = "contact",
+          cascade = CascadeType.ALL,
+          orphanRemoval = true)
+  private Set<ContactGroup> groups = new HashSet<>();
 
-  public Groups getGroups() {
-    return new Groups(groups);
-  }
+//  public ContactGroup getGroups() {
+//    return new Groups(groups);
+//  }
 
- public ContactData withGroup(GroupData group) {
-    groups.add(group);
+  public ContactData withGroup(GroupData group) {
+    ContactGroup contactGroup = new ContactGroup(this, group);
+    groups.add(contactGroup);
     return this;
   }
 
@@ -219,4 +224,19 @@ public class ContactData {
             '}';
   }
 
+  public Set<ContactGroup> getGroups() {
+    return groups;
+  }
+
+  public void setGroups(Set<ContactGroup> groups) {
+    this.groups = groups;
+  }
+
+  public Date getDeprecated() {
+    return deprecated;
+  }
+
+  public void setDeprecated(Date deprecated) {
+    this.deprecated = deprecated;
+  }
 }

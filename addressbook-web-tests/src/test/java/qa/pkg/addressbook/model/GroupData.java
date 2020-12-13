@@ -6,6 +6,7 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -32,19 +33,29 @@ public class GroupData {
   @Type(type = "text")
   private String footer;
 
-  public void setContacts(Set<ContactData> contacts) {
-    this.contacts = contacts;
+  @Column(name = "deprecated")
+  private Date deprecated = new Date();
+
+  public void setContacts(Contacts contacts) {
+     contacts.forEach(contactData -> {
+       ContactGroup cg = new ContactGroup(contactData, this);
+       cg.setDeprecated(new Date());
+       this.contacts.add(cg);
+     });
   }
 
-  @ManyToMany(fetch = FetchType.EAGER, mappedBy = "groups")
-  /*@OneToMany(mappedBy = "group",
+
+
+  //  @ManyToMany(fetch = FetchType.EAGER, mappedBy = "groups")
+  @OneToMany(mappedBy = "group",
           cascade = CascadeType.ALL,
-          orphanRemoval = true)*/
-  private Set<ContactData> contacts = new HashSet<>();
+          fetch = FetchType.EAGER,
+          orphanRemoval = true)
+  private Set<ContactGroup> contacts = new HashSet<>();
 
-  public Contacts getContacts() {
-    return new Contacts(contacts);
-  }
+//  public Contacts getContacts() {
+//    return new Contacts(contacts);
+//  }
 
   public GroupData withId(int id) {
     this.id = id;
@@ -104,5 +115,17 @@ public class GroupData {
   @Override
   public int hashCode() {
     return Objects.hash(id, groupName, header, footer);
+  }
+
+  public Set<ContactGroup> getContacts() {
+    return contacts;
+  }
+
+  public Date getDeprecated() {
+    return deprecated;
+  }
+
+  public void setDeprecated(Date deprecated) {
+    this.deprecated = deprecated;
   }
 }
