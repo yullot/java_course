@@ -2,6 +2,8 @@ package qa.pkg.addressbook.tests;
 
 import org.hamcrest.MatcherAssert;
 import org.openqa.selenium.remote.BrowserType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import qa.pkg.addressbook.appmanager.ApplicationManager;
@@ -15,6 +17,7 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.equalTo;
 
 public class TestBase {
+  Logger logger= LoggerFactory.getLogger(ContactAdditionToGroup.class);
 
   protected static final ApplicationManager app =
           new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));

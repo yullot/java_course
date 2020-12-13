@@ -14,7 +14,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactAdditionToGroup extends TestBase {
-  Logger logger= LoggerFactory.getLogger(ContactAdditionToGroup.class);
+
   @BeforeMethod
   public void ensurePrecondition() {
     /**

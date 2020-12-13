@@ -14,7 +14,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactDeletionFromGroup extends TestBase {
-  Logger logger = LoggerFactory.getLogger(ContactDeletionFromGroup.class);
 
   @BeforeMethod
   public void ensurePrecondition() {
