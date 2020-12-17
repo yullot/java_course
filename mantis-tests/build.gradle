@@ -13,6 +13,10 @@ dependencies {
     implementation 'org.apache.httpcomponents:httpclient:4.5.13'
     // commons-net: work with FTP protocol
     implementation 'commons-net:commons-net:3.7.2'
+    // subethamail:work with email protocols
+    implementation 'org.subethamail:subethasmtp:3.1.7'
+     // verbalregex: library for regular expressions
+    implementation 'ru.lanwen.verbalregex:java-verbal-expressions:1.6'
   }
 /**
  * added property for launching tests via cmd
