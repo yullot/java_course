@@ -13,19 +13,21 @@ import java.util.List;
 import static org.testng.Assert.assertTrue;
 
 public class RegistrationTests extends TestBase {
-  @BeforeMethod
-  public void startMailServer() {
-    app.mail().start();
-  }
+//  @BeforeMethod
+//  public void startMailServer() {
+//    app.mail().start();
+//  }
 
   @Test
   public void testRegistration() throws IOException, MessagingException {
     long now=System.currentTimeMillis();
-    String email=String.format("user%s@localhost.localdomain", now);
+    String email=String.format("user%s@localhost", now);
     String user=String.format("user%s",now);
     String password="password";
+    app.james().createUser(user,password);
     app.signUp().start(user, email);
-    List<MailMessage> mailMessages=app.mail().waitForMail(2, 1000);
+    //List<MailMessage> mailMessages=app.mail().waitForMail(2, 1000);
+    List<MailMessage> mailMessages=app.james().waitForMail(user,password,60000);
     String confirmationLink=findConfirmationLink(mailMessages,email);
     app.signUp().finish(confirmationLink,password);
     assertTrue(app.newSession().login(user,password));
@@ -37,8 +39,8 @@ public class RegistrationTests extends TestBase {
     return regex.getText(mailMessage.text);
   }
 
-  @AfterMethod(alwaysRun = true)
-  public void stopMailServer() {
-    app.mail().stop();
-  }
+//  @AfterMethod(alwaysRun = true)
+//  public void stopMailServer() {
+//    app.mail().stop();
+//  }
 }
