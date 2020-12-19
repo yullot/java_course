@@ -141,8 +141,7 @@ public class JamesHelper {
     long now = System.currentTimeMillis();
     while (System.currentTimeMillis() < now + timeout) {
       List<MailMessage> allMail = getAllMail(user, password);
-      Thread.sleep(10000);
-      if (allMail.size() > 0) {
+     if (allMail.size() > 0) {
         return allMail;
       }
       try {

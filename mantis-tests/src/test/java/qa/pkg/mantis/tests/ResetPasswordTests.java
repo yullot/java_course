@@ -1,12 +1,10 @@
 package qa.pkg.mantis.tests;
 
 import org.testng.annotations.Test;
-import qa.pkg.mantis.appmanager.HttpSession;
 import qa.pkg.mantis.model.MailMessage;
 import ru.lanwen.verbalregex.VerbalExpression;
 
 import javax.mail.MessagingException;
-import java.io.IOException;
 import java.util.List;
 
 import static org.testng.Assert.assertTrue;
@@ -33,8 +31,7 @@ public class ResetPasswordTests extends TestBase {
     assertTrue(app.loginHelper().isLoggedInAs(userName));
   }
 
-  private String findConfirmationLink(List<MailMessage> mailMessages, String email) throws InterruptedException {
-    Thread.sleep(10000);
+  private String findConfirmationLink(List<MailMessage> mailMessages, String email)  {
     MailMessage mailMessage=mailMessages.stream().filter((m)->m.toWhom.equals(email)).findFirst().get();
     VerbalExpression regex= VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
     return regex.getText(mailMessage.text);
