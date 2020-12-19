@@ -67,13 +67,13 @@ public class JamesHelper {
     //Don't know why it doesn't a;;ow ;ogin at the first attempt
     readUntil("Login id:");
     write("");
-    readUntil("Password");
+    readUntil("Password ");
     write("");
 
     //Second login attempt, must be successful
     readUntil("Login id:");
     write(login);
-    readUntil("Password");
+    readUntil("Password ");
     write(password);
 
     //Read welcome message

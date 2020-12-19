@@ -30,7 +30,7 @@ public class RegistrationTests extends TestBase {
     List<MailMessage> mailMessages=app.james().waitForMail(user,password,60000);
     String confirmationLink=findConfirmationLink(mailMessages,email);
     app.signUp().finish(confirmationLink,password);
-    assertTrue(app.newSession().login(user,password));
+    assertTrue(app.newSession().loginHttpSession(user,password));
   }
 
   private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
