@@ -88,7 +88,6 @@ public class ApplicationManager {
     return jamesHelper;
   }
 
-
   public WebDriver getDriver() {
     if (wd == null) {
       if (browser.equals(BrowserType.FIREFOX)) {
