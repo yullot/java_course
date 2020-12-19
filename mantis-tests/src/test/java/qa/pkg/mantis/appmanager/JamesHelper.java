@@ -64,16 +64,16 @@ public class JamesHelper {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    //Don't know why it doesn't a;;ow ;ogin at the first attempt
+    //Don't know why it doesn't allow login at the first attempt
     readUntil("Login id:");
     write("");
-    readUntil("Password ");
+    readUntil("Password");
     write("");
 
     //Second login attempt, must be successful
     readUntil("Login id:");
     write(login);
-    readUntil("Password ");
+    readUntil("Password");
     write(password);
 
     //Read welcome message
@@ -137,10 +137,11 @@ public class JamesHelper {
     store.close();
   }
 
-  public List<MailMessage> waitForMail(String user, String password, int timeout) throws MessagingException {
+  public List<MailMessage> waitForMail(String user, String password, int timeout) throws MessagingException, InterruptedException {
     long now = System.currentTimeMillis();
     while (System.currentTimeMillis() < now + timeout) {
       List<MailMessage> allMail = getAllMail(user, password);
+      Thread.sleep(10000);
       if (allMail.size() > 0) {
         return allMail;
       }

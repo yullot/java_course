@@ -14,4 +14,9 @@ public class LoginHelper extends HelperBase {
     fillInput(By.name("password"), password);
     click(By.cssSelector("input[type='submit']"));
   }
+
+
+  public boolean isLoggedInAs(String username){
+    return isElementPresent(By.linkText(username));
+  }
 }

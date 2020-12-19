@@ -22,4 +22,12 @@ public class ResetPasswordHelper extends HelperBase{
   public String getEmail() {
     return wd.findElement(By.id("email-field")).getAttribute("value");
   }
+
+  public void changePassword(String confirmationLink, String password)  {
+    wd.get(confirmationLink);
+    fillInput(By.name("password"),password);
+    fillInput(By.name("password_confirm"),password);
+    wd.findElement(By.tagName("button")).click();
+  }
+
 }

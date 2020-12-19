@@ -13,9 +13,10 @@ import static org.testng.Assert.assertTrue;
 
 public class ResetPasswordTests extends TestBase {
   @Test
-  public void testResetPassword() throws  MessagingException {
-    String userName="user1608240786624";
+  public void testResetPassword() throws MessagingException, InterruptedException {
+    String userName="user5";
     String password="password";
+    String newPassword="new";
     String email;
 
     app.loginHelper().login("administrator","root");
@@ -24,14 +25,16 @@ public class ResetPasswordTests extends TestBase {
     app.james().doesUserExist(userName);
     System.out.println("!!!!Email "+email);
     app.resetPassword().clickResetBtn();
+    app.james().drainEmail(userName, password);
      List<MailMessage> mailMessages = app.james().waitForMail(userName, password, 60000);
     String confirmationLink = findConfirmationLink(mailMessages, email);
     System.out.println("Link "+confirmationLink);
-// app.resetPassword().changePassword(confirmationLink, password);
-//    assertTrue(session.login(userName, password));
+    app.resetPassword().changePassword(confirmationLink,newPassword);
+    assertTrue(app.loginHelper().isLoggedInAs(userName));
   }
 
-  private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
+  private String findConfirmationLink(List<MailMessage> mailMessages, String email) throws InterruptedException {
+    Thread.sleep(10000);
     MailMessage mailMessage=mailMessages.stream().filter((m)->m.toWhom.equals(email)).findFirst().get();
     VerbalExpression regex= VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
     return regex.getText(mailMessage.text);
