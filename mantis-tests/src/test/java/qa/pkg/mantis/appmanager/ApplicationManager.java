@@ -21,6 +21,8 @@ public class ApplicationManager {
   private JamesHelper jamesHelper;
   private ResetPasswordHelper resetPasswordHelper;
   private LoginHelper loginHelper;
+  private DBHelper dbHelper;
+
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -99,5 +101,12 @@ public class ApplicationManager {
       wd.get(properties.getProperty("web.baseUrl"));
     }
     return wd;
+  }
+
+  public DBHelper db() {
+    if (dbHelper == null) {
+      dbHelper = new DBHelper(this);
+    }
+    return dbHelper;
   }
 }

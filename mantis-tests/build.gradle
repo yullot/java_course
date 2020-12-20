@@ -17,6 +17,9 @@ dependencies {
     implementation 'org.subethamail:subethasmtp:3.1.7'
      // verbalregex: library for regular expressions
     implementation 'ru.lanwen.verbalregex:java-verbal-expressions:1.6'
+    implementation 'mysql:mysql-connector-java:8.0.22'
+    //for work with DB
+    implementation 'org.hibernate:hibernate-java8:5.4.20.Final'
   }
 /**
  * added property for launching tests via cmd

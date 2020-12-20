@@ -20,25 +20,23 @@ public class RegistrationTests extends TestBase {
 
   @Test
   public void testRegistration() throws IOException, MessagingException, InterruptedException {
-    long now=System.currentTimeMillis();
-//    String email=String.format("user%s@localhost", now);
-//    String user=String.format("user%s",now);
+    long now = System.currentTimeMillis();
+    String email = String.format("user%s@localhost", now);
+    String user = String.format("user%s", now);
 
-    String email=String.format("user%s@localhost", 5);
- String user=String.format("user%s",5);
-    String password="password";
-    app.james().createUser(user,password);
+    String password = "password";
+    app.james().createUser(user, password);
     app.signUp().start(user, email);
     //List<MailMessage> mailMessages=app.mail().waitForMail(2, 1000);
-    List<MailMessage> mailMessages=app.james().waitForMail(user,password,60000);
-    String confirmationLink=findConfirmationLink(mailMessages,email);
-    app.signUp().finish(confirmationLink,password);
-    assertTrue(app.newSession().loginHttpSession(user,password));
+    List<MailMessage> mailMessages = app.james().waitForMail(user, password, 60000);
+    String confirmationLink = findConfirmationLink(mailMessages, email);
+    app.signUp().finish(confirmationLink, password);
+    assertTrue(app.newSession().loginHttpSession(user, password));
   }
 
   private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
-  MailMessage mailMessage=mailMessages.stream().filter((m)->m.toWhom.equals(email)).findFirst().get();
-    VerbalExpression regex= VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
+    MailMessage mailMessage = mailMessages.stream().filter((m) -> m.toWhom.equals(email)).findFirst().get();
+    VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
     return regex.getText(mailMessage.text);
   }
 
