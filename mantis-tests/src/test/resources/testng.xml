@@ -6,6 +6,7 @@
             <class name="qa.pkg.mantis.tests.LoginTests"/>
             <class name="qa.pkg.mantis.tests.RegistrationTests"/>
             <class name="qa.pkg.mantis.tests.ResetPasswordTests"/>
+            <class name="qa.pkg.mantis.tests.SoapTests"/>
         </classes>
     </test>
 
