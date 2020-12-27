@@ -3,7 +3,7 @@
 <suite name="Suite1" verbose="1">
     <test name="Rest">
         <classes>
-            <class name="qa.pkg.rest.RestTest"/>
+            <class name="qa.pkg.rest.tests.RestTest"/>
         </classes>
     </test>
 
