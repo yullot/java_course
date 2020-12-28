@@ -4,9 +4,9 @@
     <test name="Groups" >
         <classes>
             <class name="qa.pkg.addressbook.tests.GroupCreationTests" />
-            <class name="qa.pkg.addressbook.tests.GroupEditionTests" />
-            <class name="qa.pkg.addressbook.tests.GroupDeletionTests" />
-        </classes>
-    </test>
+            <!--  <class name="qa.pkg.addressbook.tests.GroupEditionTests" />
+              <class name="qa.pkg.addressbook.tests.GroupDeletionTests" />-->
+          </classes>
+      </test>
 
-</suite>
+  </suite>
