@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Properties;
 
+import static org.openqa.selenium.Platform.fromString;
+
 public class ApplicationManager {
   private final Properties properties;
   WebDriver wd;
@@ -43,7 +45,7 @@ public class ApplicationManager {
     } else {
       DesiredCapabilities capabilities = new DesiredCapabilities();
       capabilities.setBrowserName(browser);
-     // capabilities.setPlatform(Platform.fromString(System.getProperty("platform", "win10")));
+      capabilities.setPlatform(fromString(System.getProperty("platform", "win10")));
       wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
     }
 
