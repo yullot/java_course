@@ -6,7 +6,7 @@
             <class name="qa.pkg.addressbook.tests.ContactCreationTests" />
             <class name="qa.pkg.addressbook.tests.ContactEditionTests" />
             <class name="qa.pkg.addressbook.tests.ContactDeletionTests" />
-        </classes>
-    </test>
+          </classes>
+      </test>
 
-</suite>
+  </suite>
