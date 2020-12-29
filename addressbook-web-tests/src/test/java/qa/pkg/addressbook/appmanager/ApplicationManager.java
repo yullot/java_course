@@ -40,11 +40,11 @@ public class ApplicationManager {
       } else if (browser.equals(BrowserType.CHROME)) {
         wd = new ChromeDriver();
       }
-    } else{
-      DesiredCapabilities capabilities=new DesiredCapabilities();
+    } else {
+      DesiredCapabilities capabilities = new DesiredCapabilities();
       capabilities.setBrowserName(browser);
-     capabilities.setPlatform(Platform.fromString(System.getProperty("platform","win10")));
-      wd=new RemoteWebDriver(new URL(properties.getProperty("selenium.server")),capabilities);
+      capabilities.setPlatform(Platform.fromString(System.getProperty("platform", "win10")));
+      wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
     }
 
     //wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -74,6 +74,6 @@ public class ApplicationManager {
   }
 
   public DBHelper db() {
-      return dbHelper;
+    return dbHelper;
   }
 }
